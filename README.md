@@ -1,9 +1,9 @@
 # GraphQL-Schema-Generator
 
-Generate GraphQL schema(SDL) from Prisma schema using Prisma generator.
+Generate `GraphQL schema(SDL)` from `Prisma schema` using Prisma generator.
 
 ## Contributing
-Any contributions are welcomed. If you are interested, check out our [out guildline]().
+Any contributions are welcomed. If you are interested, check out our [out guildline](https://github.com/prisma-korea/graphql-schema-generator/blob/master/CONTRIBUTING.md).
 
 ## Getting Started
 
@@ -13,7 +13,7 @@ Any contributions are welcomed. If you are interested, check out our [out guildl
 pnpm install @prisma-korea/graphql-schema-generator
 ```
 
-2. Add the generator to the schema
+2. Add the generator to the schema.
 
 ```prisma
 generator graphql {
@@ -21,5 +21,4 @@ generator graphql {
 }
 ```
 
-3. Check output in `./prisma/schema/schema.graphql`
-
+3. Check `schema.graphql` in `./prisma/schema`.
