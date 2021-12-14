@@ -1,12 +1,12 @@
-# Contributing to Graphql-Schema-Generator
+# Contributing to GraphQL-Schema-Generator
 
 Thanks for taking the time to contribute!
 
-The following is a set of guidelines for contributing to Graphql-Schema-Generator. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
+The following is a set of guidelines for contributing to GraphQL-Schema-Generator. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Architecture
 
-Graphql-Schema-Generator rely on [Prisma Generator](https://prismaio.notion.site/Prisma-Generators-a2cdf262207a4e9dbcd0e362dfac8dc0).
+GraphQL-Schema-Generator rely on [Prisma Generator](https://prismaio.notion.site/Prisma-Generators-a2cdf262207a4e9dbcd0e362dfac8dc0).
 
 ## Testing
 

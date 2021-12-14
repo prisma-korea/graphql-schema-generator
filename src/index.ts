@@ -10,7 +10,7 @@ generatorHandler({
   onManifest() {
     return {
       defaultOutput: './schema',
-      prettyName: 'graphql-schema-generator',
+      prettyName: 'GraphQL-Schema-Generator',
     };
   },
   async onGenerate(options) {
@@ -30,11 +30,11 @@ generatorHandler({
           graphqlSchema,
         );
       } catch (e) {
-        console.error('Error: unable to write files for Graphql-Schema-Generator');
+        console.error('Error: unable to write files for GraphQL-Schema-Generator');
         throw e;
       }
     } else {
-      throw new Error('No output was specified for Graphql-Schema-Generator');
+      throw new Error('No output was specified for GraphQL-Schema-Generator');
     }
   },
 });
