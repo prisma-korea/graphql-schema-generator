@@ -1,7 +1,7 @@
 import { DMMF } from '@prisma/generator-helper';
 
-import formatModel from 'formatter/modelFormatter';
-import formatField from './formatter/fieldFormatter';
+import formatModel from 'formatters/modelFormatter';
+import formatField from './formatters/fieldFormatter';
 import { DataModel, Models } from './parser';
 
 const getFieldTypePair = (models: Models, modelName: string) => {
