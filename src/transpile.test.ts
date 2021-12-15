@@ -1,5 +1,5 @@
-import parse from './parser';
-import transpile from './transpiler';
+import parse from './parse';
+import transpile from './transpile';
 
 import { removeWhiteSpaces } from './utils';
 

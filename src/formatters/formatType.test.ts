@@ -1,4 +1,4 @@
-import format from './typeFormatter';
+import format from './formatType';
 
 describe('typeFormatter', () => {
   it('does nothing with normal type', () => {

@@ -1,5 +1,5 @@
 import { DMMF } from '@prisma/generator-helper';
-import convertScalar from './scalarConverter';
+import convertScalar from './convertScalar';
 
 const convertType = (field: DMMF.Field) => {
   const { kind } = field;
@@ -9,7 +9,7 @@ const convertType = (field: DMMF.Field) => {
   }
 
   // TODO
-  return '';
+  return field.type;
 };
 
 export default convertType;

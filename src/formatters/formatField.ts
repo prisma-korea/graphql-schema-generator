@@ -1,6 +1,6 @@
 import { DMMF } from '@prisma/generator-helper';
 
-import formatType from './typeFormatter';
+import formatType from './formatType';
 
 type Option = {[key: string]: boolean}
 

@@ -3,8 +3,8 @@ import * as path from 'path';
 
 import { generatorHandler } from '@prisma/generator-helper';
 
-import parse from './parser';
-import transpile from './transpiler';
+import parse from './parse';
+import transpile from './transpile';
 
 generatorHandler({
   onManifest() {

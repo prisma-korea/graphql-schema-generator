@@ -1,17 +1,17 @@
-import fieldFormatter from './fieldFormatter';
-import typeFormatter from './typeFormatter';
+import fieldFormatter from './formatField';
+import formatType from './formatType';
 
-jest.mock('./typeFormatter');
+jest.mock('./formatType');
 
 describe('fieldFormatter', () => {
   it('calls type formatter with options', () => {
     fieldFormatter({ name: 'name', type: 'type', typeOption: { isList: true } });
 
-    expect(typeFormatter).toBeCalledWith('type', { isList: true });
+    expect(formatType).toBeCalledWith('type', { isList: true });
   });
 
   it('formats the whole field', () => {
-    (typeFormatter as jest.Mock).mockImplementation(() => 'type');
+    (formatType as jest.Mock).mockImplementation(() => 'type');
 
     expect(fieldFormatter({ name: 'name', type: 'type' })).toBe('\tname: type');
   });

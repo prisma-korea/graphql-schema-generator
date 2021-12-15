@@ -1,4 +1,4 @@
-import formatModel from './modelFormatter';
+import formatModel from './formatModel';
 
 describe('formatModel', () => {
   it('formats the whole model', () => {

@@ -1,6 +1,6 @@
 import { DMMF } from '@prisma/generator-helper';
 
-import convertScalar from './scalarConverter';
+import convertScalar from './convertScalar';
 import { GraphQL, Prisma } from './types';
 
 describe('convertScalar', () => {

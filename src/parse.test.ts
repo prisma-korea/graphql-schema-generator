@@ -1,4 +1,4 @@
-import parse from './parser';
+import parse from './parse';
 
 const prismaSchema = /* Prisma */ `
   model Post {
