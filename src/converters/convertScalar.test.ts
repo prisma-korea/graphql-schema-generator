@@ -22,6 +22,22 @@ describe('convertScalar', () => {
     expect(convertScalar(field as DMMF.Field)).toBe(GraphQL.String);
   });
 
+  it('converts BigInt to Int', () => {
+    const field = {
+      type: Prisma.BigInt,
+    };
+
+    expect(convertScalar(field as DMMF.Field)).toBe(GraphQL.Int);
+  });
+
+  it('converts Decimal to Float', () => {
+    const field = {
+      type: Prisma.Decimal,
+    };
+
+    expect(convertScalar(field as DMMF.Field)).toBe(GraphQL.Float);
+  });
+
   it('converts every type declared as @id to ID', () => {
     expect(convertScalar({ type: Prisma.String, isId: false } as DMMF.Field)).toBe(GraphQL.String);
     expect(convertScalar({ type: Prisma.Json, isId: false } as DMMF.Field)).toBe(GraphQL.String);
