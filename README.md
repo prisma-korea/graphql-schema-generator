@@ -9,6 +9,7 @@ Any contributions are welcomed. If you are interested, check out our [out guildl
 ## Getting Started
 
 **Important**
+
 Currently, using `@prisma-korea/graphql-schema-generator` as package is not working. We will fix this soon. Until then, you can copy & past your `schema.prisma` in `prisma` folder in this project, and run `npx prisma generate` to see how it works.
 
 1. Install this package in your project using:
