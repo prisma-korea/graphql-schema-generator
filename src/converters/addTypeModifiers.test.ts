@@ -27,4 +27,11 @@ describe('addTypeModifier', () => {
     )
       .toBe('String!');
   });
+
+  it('add []! for non-nullable list', () => {
+    expect(
+      addTypeModifier({ type: Prisma.String, isRequired: true, isList: true } as DMMF.Field),
+    )
+      .toBe('[String]!');
+  });
 });

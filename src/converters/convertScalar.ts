@@ -10,7 +10,7 @@ const convertScalar = (field: DMMF.Field) => {
     matcher, transformer,
   }: Rule): string => {
     if (matcher(field)) {
-      return transformer(field);
+      return transformer(field, type);
     }
 
     // TODO
