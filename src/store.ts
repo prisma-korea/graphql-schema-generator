@@ -1,22 +1,22 @@
 type T = {
-  scalars: string[]
+  scalars: Set<string>
 }
 
 class Store {
-  data: T;
+  private data: T;
 
   constructor() {
-    this.data = { scalars: [] };
+    this.data = { scalars: new Set<string>() };
   }
 
   get scalars(): string[] {
-    return this.data.scalars;
+    const set = this.data.scalars;
+
+    return Array.from(set.values());
   }
 
   addScalar(s: string) {
-    const previous = this.data.scalars;
-
-    this.data.scalars = [...previous, s];
+    this.data.scalars.add(s);
   }
 }
 
