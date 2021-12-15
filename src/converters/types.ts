@@ -23,7 +23,7 @@ enum Prisma {
 
 type Rule = {
   matcher: (field: DMMF.Field) => boolean
-  transformer: (field?: DMMF.Field) => string
+  transformer: (field: DMMF.Field, type: DMMF.Field['type']) => string
 }
 
 export { GraphQL, Prisma, Rule };
