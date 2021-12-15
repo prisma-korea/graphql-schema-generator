@@ -4,9 +4,11 @@ import convertType from 'converters/convertType';
 import addTypeModifiers from 'converters/addTypeModifiers';
 
 import formatModel from 'formatters/formatModel';
+import formatScalar from 'formatters/formatScalar';
 import formatField from './formatters/formatField';
 
 import { DataModel } from './parse';
+import store from './store';
 
 const getFieldTypePair = (model: DMMF.Model) => {
   if (!model) {
@@ -55,13 +57,17 @@ const getFieldTypePair = (model: DMMF.Model) => {
 const transpile = (dataModel: DataModel) => {
   const { models, names } = dataModel;
 
-  const graphqlSchema = names.map((name) => {
+  const modelsOfSchema = names.map((name) => {
     const fields = getFieldTypePair(models[name]);
 
     return formatModel(name, fields);
   }).join('');
 
-  return graphqlSchema;
+  const scalarsOfSchema = store.data.scalars.map((scalar) => formatScalar(scalar)).join('');
+
+  const schema = scalarsOfSchema + modelsOfSchema;
+
+  return schema;
 };
 
 export default transpile;
