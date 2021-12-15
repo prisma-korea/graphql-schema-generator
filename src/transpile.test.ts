@@ -32,7 +32,7 @@ const graphqlSchema = `
     email: String!
     id: ID!
     name: String
-    posts: [Post]
+    posts: [Post]!
   }
 `;
 
