@@ -17,9 +17,22 @@ const prismaSchema = /* Prisma */ `
   }
 `;
 
+// TODO: Remove
+const testString = /* Prisma */ `
+  model User {
+    firstName Int  @id
+    lastName  String
+    email     String  @unique
+    isAdmin   Boolean @default(false)
+  }
+`;
+
 describe('DataModel', () => {
   it('returns name of models', async () => {
     const dataModel = await parse(prismaSchema);
+
+    const aa = await parse(testString);
+    console.log(aa.models.User.fields);
 
     expect(dataModel.names).toEqual(['Post', 'User']);
   });

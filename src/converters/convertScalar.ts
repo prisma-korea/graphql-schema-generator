@@ -1,29 +1,7 @@
 import { DMMF } from '@prisma/generator-helper';
 
-import { GraphQL, Prisma, Rule } from './types';
-
-const rules: Rule[] = [
-  {
-    matcher: (field) => {
-      const { type } = field;
-
-      if (type === Prisma.Json) {
-        return true;
-      }
-
-      return false;
-    },
-    transformer: () => GraphQL.String,
-  },
-  {
-    matcher: (field) => {
-      const { isId } = field;
-
-      return isId;
-    },
-    transformer: () => GraphQL.ID,
-  },
-];
+import rules from './rules/scalar';
+import { Rule } from './types';
 
 const convertScalar = (field: DMMF.Field) => {
   const initialType = field.type;
