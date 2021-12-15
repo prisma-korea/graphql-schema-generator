@@ -6,7 +6,7 @@ import { removeWhiteSpaces } from './utils';
 const prismaSchema = /* Prisma */ `
   model Post {
     authorId  Int?
-    content   String?
+    content   Bytes?
     id        Int     @default(autoincrement()) @id
     published Boolean @default(false)
     author    User?   @relation(fields: [authorId], references: [id])
@@ -21,8 +21,10 @@ const prismaSchema = /* Prisma */ `
 `;
 
 const graphqlSchema = `
+  scalar ByteArray
+
   type Post {
-    content: String
+    content: ByteArray
     id: ID!
     published: Boolean!
     author: User

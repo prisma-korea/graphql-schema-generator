@@ -1,4 +1,7 @@
-import { GraphQL, Prisma, Rule } from 'converters/types';
+import {
+  GraphQL, Prisma, Rule, Scalar,
+} from 'converters/types';
+import store from '../../store';
 
 const rules: Rule[] = [
   {
@@ -36,6 +39,38 @@ const rules: Rule[] = [
       return false;
     },
     transformer: () => GraphQL.Float,
+  },
+  {
+    matcher: (field) => {
+      const { type } = field;
+
+      if (type === Prisma.Bytes) {
+        return true;
+      }
+
+      return false;
+    },
+    transformer: () => {
+      store.addScalar(Scalar.ByteArray);
+
+      return Scalar.ByteArray;
+    },
+  },
+  {
+    matcher: (field) => {
+      const { type } = field;
+
+      if (type === Prisma.DateTime) {
+        return true;
+      }
+
+      return false;
+    },
+    transformer: () => {
+      store.addScalar(Scalar.DateTime);
+
+      return Scalar.DateTime;
+    },
   },
   {
     matcher: (field) => {
