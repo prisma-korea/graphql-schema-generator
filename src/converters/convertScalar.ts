@@ -15,6 +15,14 @@ const rules: Rule[] = [
     },
     transformer: () => GraphQL.String,
   },
+  {
+    matcher: (field) => {
+      const { isId } = field;
+
+      return isId;
+    },
+    transformer: () => GraphQL.ID,
+  },
 ];
 
 const convertScalar = (field: DMMF.Field) => {

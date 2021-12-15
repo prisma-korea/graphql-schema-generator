@@ -21,4 +21,12 @@ describe('convertScalar', () => {
 
     expect(convertScalar(field as DMMF.Field)).toBe(GraphQL.String);
   });
+
+  it('converts every type declared as @id to ID', () => {
+    expect(convertScalar({ type: Prisma.String, isId: false } as DMMF.Field)).toBe(GraphQL.String);
+    expect(convertScalar({ type: Prisma.Json, isId: false } as DMMF.Field)).toBe(GraphQL.String);
+
+    expect(convertScalar({ type: Prisma.String, isId: true } as DMMF.Field)).toBe(GraphQL.ID);
+    expect(convertScalar({ type: Prisma.Json, isId: true } as DMMF.Field)).toBe(GraphQL.ID);
+  });
 });
