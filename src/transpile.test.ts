@@ -4,6 +4,11 @@ import transpile from './transpile';
 import { removeWhiteSpaces } from './utils';
 
 const prismaSchema = /* Prisma */ `
+  enum Role {
+    USER
+    ADMIN
+  }
+
   model Post {
     authorId  Int?
     content   Bytes?
@@ -22,6 +27,11 @@ const prismaSchema = /* Prisma */ `
 
 const graphqlSchema = `
   scalar ByteArray
+
+  enum Role {
+    USER
+    ADMIN
+  }
 
   type Post {
     content: ByteArray

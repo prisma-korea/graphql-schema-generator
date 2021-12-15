@@ -2,6 +2,7 @@ import { getDMMF } from '@prisma/sdk';
 import { DMMF } from '@prisma/generator-helper';
 
 export type Models = {[name: string]: DMMF.Model}
+export type Enums = {[name: string]: DMMF.DatamodelEnum['values']}
 
 export class DataModel {
   dataModel: DMMF.Datamodel;
@@ -19,10 +20,20 @@ export class DataModel {
   get models(): Models {
     const { models } = this.dataModel;
 
-    return models.reduce((ret, model) => {
+    return models.reduce((acc, model) => {
       const { name } = model;
 
-      return { ...ret, [name]: model };
+      return { ...acc, [name]: model };
+    }, {});
+  }
+
+  get enums(): Enums {
+    const { enums } = this.dataModel;
+
+    return enums.reduce((acc, cur) => {
+      const { name, values } = cur;
+
+      return { ...acc, [name]: values };
     }, {});
   }
 }
