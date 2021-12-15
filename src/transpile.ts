@@ -70,7 +70,7 @@ const transpile = (dataModel: DataModel) => {
   const scalarsOfSchema = store.data.scalars.map((scalar) => formatScalar(scalar)).join('');
 
   const enumsOfSchema = Object.entries(enums).map(([name, anEnum]) => {
-    const fields = anEnum.map(({ name: field }) => field);
+    const fields = anEnum.map(({ name: field }) => `\t${field}`);
 
     return formatDefinition({
       type: 'enum',
