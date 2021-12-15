@@ -1,10 +1,10 @@
 import { DMMF } from '@prisma/generator-helper';
 
-import convertType from 'converters/convertType';
-import addTypeModifiers from 'converters/addTypeModifiers';
+import convertType from './converters/convertType';
+import addTypeModifiers from './converters/addTypeModifiers';
 
-import formatDefinition from 'formatters/formatDefinition';
-import formatScalar from 'formatters/formatScalar';
+import formatDefinition from './formatters/formatDefinition';
+import formatScalar from './formatters/formatScalar';
 import formatField from './formatters/formatField';
 
 import { DataModel } from './parse';

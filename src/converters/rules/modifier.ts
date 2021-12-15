@@ -1,5 +1,6 @@
 import { DMMF } from '@prisma/generator-helper';
-import { Rule } from 'converters/types';
+
+import { Rule } from '../types';
 
 const addBrasket = (field: DMMF.Field, type: DMMF.Field['type']) => `[${type}]`;
 const addExclamation = (field: DMMF.Field, type: DMMF.Field['type']) => `${type}!`;

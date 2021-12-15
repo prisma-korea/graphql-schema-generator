@@ -1,6 +1,6 @@
 import {
   GraphQL, Prisma, Rule, Scalar,
-} from 'converters/types';
+} from '../types';
 import store from '../../store';
 
 const rules: Rule[] = [
