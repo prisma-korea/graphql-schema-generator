@@ -3,7 +3,7 @@ import { DMMF } from '@prisma/generator-helper';
 import convertType from 'converters/convertType';
 import addTypeModifiers from 'converters/addTypeModifiers';
 
-import formatModel from 'formatters/formatModel';
+import formatDefinition from 'formatters/formatDefinition';
 import formatScalar from 'formatters/formatScalar';
 import formatField from './formatters/formatField';
 
@@ -55,17 +55,31 @@ const getFieldTypePair = (model: DMMF.Model) => {
 };
 
 const transpile = (dataModel: DataModel) => {
-  const { models, names } = dataModel;
+  const { models, enums, names } = dataModel;
 
   const modelsOfSchema = names.map((name) => {
     const fields = getFieldTypePair(models[name]);
 
-    return formatModel(name, fields);
+    return formatDefinition({
+      type: 'type',
+      name,
+      fields,
+    });
   }).join('');
 
   const scalarsOfSchema = store.data.scalars.map((scalar) => formatScalar(scalar)).join('');
 
-  const schema = scalarsOfSchema + modelsOfSchema;
+  const enumsOfSchema = Object.entries(enums).map(([name, anEnum]) => {
+    const fields = anEnum.map(({ name: field }) => field);
+
+    return formatDefinition({
+      type: 'enum',
+      name,
+      fields,
+    });
+  }).join('');
+
+  const schema = scalarsOfSchema + enumsOfSchema + modelsOfSchema;
 
   return schema;
 };
