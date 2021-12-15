@@ -6,11 +6,9 @@ import addTypeModifiers from 'converters/addTypeModifiers';
 import formatModel from 'formatters/formatModel';
 import formatField from './formatters/formatField';
 
-import { DataModel, Models } from './parse';
+import { DataModel } from './parse';
 
-const getFieldTypePair = (models: Models, modelName: string) => {
-  const model = models[modelName];
-
+const getFieldTypePair = (model: DMMF.Model) => {
   if (!model) {
     return [];
   }
@@ -58,7 +56,7 @@ const transpile = (dataModel: DataModel) => {
   const { models, names } = dataModel;
 
   const graphqlSchema = names.map((name) => {
-    const fields = getFieldTypePair(models, name);
+    const fields = getFieldTypePair(models[name]);
 
     return formatModel(name, fields);
   }).join('');
