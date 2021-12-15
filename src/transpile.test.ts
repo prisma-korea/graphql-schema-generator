@@ -23,14 +23,14 @@ const prismaSchema = /* Prisma */ `
 const graphqlSchema = `
   type Post {
     content: String
-    id: Int
-    published: Boolean
+    id: ID!
+    published: Boolean!
     author: User
   }
 
   type User {
-    email: String
-    id: Int
+    email: String!
+    id: ID!
     name: String
     posts: [Post]
   }

@@ -1,7 +1,11 @@
 import { DMMF } from '@prisma/generator-helper';
 
+import convertType from 'converters/convertType';
+import addTypeModifiers from 'converters/addTypeModifiers';
+
 import formatModel from 'formatters/formatModel';
 import formatField from './formatters/formatField';
+
 import { DataModel, Models } from './parse';
 
 const getFieldTypePair = (models: Models, modelName: string) => {
@@ -26,12 +30,25 @@ const getFieldTypePair = (models: Models, modelName: string) => {
     return acc;
   }, {});
 
-  const pairs = model.fields.map(({ name, type, isList }) => {
+  const pairs = model.fields.map((field) => {
+    const { name } = field;
+
     if (shouldIgnore[name]) {
       return '';
     }
 
-    return formatField({ name, type, typeOption: { isList } });
+    const transformers = [
+      convertType,
+      addTypeModifiers,
+    ];
+
+    const typeTransformedField = transformers.reduce((acc, transformer) => {
+      const type = transformer(acc);
+
+      return { ...acc, type };
+    }, field);
+
+    return formatField(typeTransformedField);
   });
 
   return pairs;
