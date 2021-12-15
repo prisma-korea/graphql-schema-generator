@@ -8,9 +8,11 @@ Any contributions are welcomed. If you are interested, check out our [out guildl
 
 ## Getting Started
 
-**Important**
+**Important!**
 
-Currently, using `@prisma-korea/graphql-schema-generator` as package is not working. We will fix this soon. Until then, you can copy & past your `schema.prisma` in `prisma` folder in this project, and run `pnpm dev` to see how it works
+Currently, using `@prisma-korea/graphql-schema-generator` as package is not working. We will fix this soon. 
+
+Until then, you can copy & past your `schema.prisma` in `prisma` folder in this project, and run `pnpm dev` to see how it works.
 
 ---
 
