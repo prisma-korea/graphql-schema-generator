@@ -21,6 +21,7 @@ const prismaSchema = /* Prisma */ `
     email String  @unique
     id    Int     @default(autoincrement()) @id
     name  String?
+    detail Bytes?
     posts Post[]
   }
 `;
@@ -44,6 +45,7 @@ const graphqlSchema = `
     email: String!
     id: ID!
     name: String
+    detail: ByteArray
     posts: [Post]!
   }
 `;
