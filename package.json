@@ -6,6 +6,7 @@
     "dist"
   ],
   "scripts": {
+    "dev": "pnpm build && npx prisma generate",
     "build": "tsc",
     "test": "jest",
     "lint": "eslint src --ext .ts,.js,.svelte"
