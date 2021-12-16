@@ -2,9 +2,6 @@ import { DMMF } from '@prisma/generator-helper';
 
 import { GraphQL, Prisma, Scalar } from './types';
 import convertScalar from './convertScalar';
-import store from '../store';
-
-jest.mock('../store');
 
 describe('convertScalar', () => {
   it.each(['String', 'Boolean', 'Int', 'Float'])('does nothing for %s', (type) => {
@@ -41,24 +38,12 @@ describe('convertScalar', () => {
     expect(convertScalar(field as DMMF.Field)).toBe(GraphQL.Float);
   });
 
-  it('converts Bytes to ByteArray, and store it to store for generating scalar', () => {
+  it('converts Bytes to ByteArray', () => {
     const field = {
       type: Prisma.Bytes,
     };
 
     expect(convertScalar(field as DMMF.Field)).toBe(Scalar.ByteArray);
-
-    expect(store.addScalar).toBeCalledWith(Scalar.ByteArray);
-  });
-
-  it('stores DateTime to store for generating scalar', () => {
-    const field = {
-      type: Prisma.DateTime,
-    };
-
-    expect(convertScalar(field as DMMF.Field)).toBe(Scalar.DateTime);
-
-    expect(store.addScalar).toBeCalledWith(Scalar.DateTime);
   });
 
   it('converts every type declared as @id to ID', () => {
