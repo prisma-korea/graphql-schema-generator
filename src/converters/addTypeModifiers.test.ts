@@ -4,18 +4,6 @@ import { PSL } from './types';
 import addTypeModifier from './addTypeModifiers';
 
 describe('addTypeModifier', () => {
-  it('adds [] for list type', () => {
-    expect(
-      addTypeModifier({ type: PSL.String, isList: false } as DMMF.Field),
-    )
-      .toBe('String');
-
-    expect(
-      addTypeModifier({ type: PSL.String, isList: true } as DMMF.Field),
-    )
-      .toBe('[String]');
-  });
-
   it('adds ! for non-nullable type', () => {
     expect(
       addTypeModifier({ type: PSL.String, isRequired: false } as DMMF.Field),
@@ -28,10 +16,12 @@ describe('addTypeModifier', () => {
       .toBe('String!');
   });
 
-  it('add []! for non-nullable list', () => {
+  it('add [!]! for list', () => {
+    const field = { type: PSL.String, isList: true, isRequired: true };
+
     expect(
-      addTypeModifier({ type: PSL.String, isRequired: true, isList: true } as DMMF.Field),
+      addTypeModifier(field as DMMF.Field),
     )
-      .toBe('[String]!');
+      .toBe('[String!]!');
   });
 });
