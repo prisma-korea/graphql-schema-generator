@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator graphql {
-  provider = "graphql-schema-generator"
+  provider = "node ./dist-cjs/index.js"
 }
 
 // Try yours! Schema below is from here:
