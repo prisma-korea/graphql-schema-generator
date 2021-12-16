@@ -1,6 +1,6 @@
 import { DMMF } from '@prisma/generator-helper';
 
-enum GraphQL {
+enum SDL {
   ID = 'ID',
   Int = 'Int',
   Float = 'Float',
@@ -8,7 +8,7 @@ enum GraphQL {
   Boolean = 'Boolean',
 }
 
-enum Prisma {
+enum PSL {
   Int = 'Int',
   Float = 'Float',
   String = 'String',
@@ -32,5 +32,5 @@ type Rule = {
 }
 
 export {
-  GraphQL, Prisma, Scalar, Rule,
+  SDL, PSL, Scalar, Rule,
 };
