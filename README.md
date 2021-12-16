@@ -25,4 +25,4 @@ generator graphql {
 
 3. Run `npx prisma generate`
 
-4. Check `schema.graphql` in `./prisma/schema`.
+4. Check `schema.graphql` in `./prisma/generated`.
