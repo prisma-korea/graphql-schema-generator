@@ -8,17 +8,10 @@ Any contributions are welcomed. If you are interested, check out our [guidelines
 
 ## Getting Started
 
-**Important!**
-
-Currently, using `@prisma-korea/graphql-schema-generator` as package is not working. We will fix this soon. 
-
-Until then, you can copy & past your `schema.prisma` in `prisma` folder in this project, and run `pnpm dev` to see how it works.
-
----
-
 1. Install this package in your project using:
 
-```shell
+```sh
+// pnpm, npm, or yarn
 pnpm install @prisma-korea/graphql-schema-generator
 ```
 
@@ -26,7 +19,7 @@ pnpm install @prisma-korea/graphql-schema-generator
 
 ```prisma
 generator graphql {
-  provider = "node @prisma-korea/graphql-schema-generator"
+  provider = "graphql-schema-generator"
 }
 ```
 
