@@ -1,8 +1,11 @@
 node_modules
 
-.vscode
 .DS_Store
 .env
 
 lib
 coverage
+
+dist-*
+tsconfig.esm.tsbuildinfo
+tsconfig.cjs.tsbuildinfo

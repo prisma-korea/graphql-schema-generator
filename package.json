@@ -1,15 +1,15 @@
 {
   "name": "@prisma-korea/graphql-schema-generator",
-  "version": "0.0.6-rc.1",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [ "lib" ],
-    "engines": {
+  "version": "0.1.0",
+  "main": "dist-cjs/index.js",
+  "types": "dist-cjs/index.d.ts",
+  "engines": {
     "node": ">=12.6"
   },
   "scripts": {
     "dev": "pnpm build && npx prisma generate",
-    "build": "tsc",
+    "clean": "rm -rf dist-cjs dist-esm node_modules/.cache",
+    "build": "pnpm clean && tsc --build tsconfig.cjs.json tsconfig.esm.json",
     "test": "jest",
     "lint": "eslint src --ext .ts,.js"
   },
@@ -66,5 +66,31 @@
   "bugs": {
     "url": "https://github.com/prisma-korea/graphql-schema-generator/issues"
   },
-  "homepage": "https://github.com/prisma-korea/graphql-schema-generator#readme"
+  "homepage": "https://github.com/prisma-korea/graphql-schema-generator#readme",
+    "files": [
+    "dist-cjs",
+    "dist-esm"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist-cjs/index.js",
+      "import": "./dist-esm/index.js"
+    },
+    "./*": {
+      "default": "./*.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "index.d.ts": [
+        "./dist-cjs/entrypoints/main.d.ts"
+      ],
+      "*": [
+        "./*"
+      ]
+    }
+  },
+  "bin": {
+    "graphql-schema-generator": "./dist-cjs/index.js"
+  }
 }

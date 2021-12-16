@@ -1,0 +1,10 @@
+{
+  "search.exclude": {
+    "**/dist-cjs": true,
+    "**/dist-esm": true,
+    "**/__snapshots__": true,
+    "pnpm-lock.yaml": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

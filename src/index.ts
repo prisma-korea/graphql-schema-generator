@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -9,7 +11,7 @@ import transpile from './transpile';
 generatorHandler({
   onManifest() {
     return {
-      defaultOutput: './schema',
+      defaultOutput: './generated',
       prettyName: 'GraphQL-Schema-Generator',
     };
   },

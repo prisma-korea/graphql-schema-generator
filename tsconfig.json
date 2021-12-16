@@ -17,7 +17,11 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "useUnknownInCatchVariables": false,
-    "skipDefaultLibCheck": true
+    "skipDefaultLibCheck": true,
+
+    "moduleResolution": "Node",
+    "importHelpers": true,
+    "tsBuildInfoFile": "node_modules/.cache/.tsbuildinfo"
   },
   "exclude": [
     "node_modules",
