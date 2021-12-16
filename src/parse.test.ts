@@ -1,6 +1,11 @@
 import parse from './parse';
 
 const prismaSchema = /* Prisma */ `
+  enum Role {
+    USER
+    ADMIN
+  }
+
   model Post {
     authorId  Int?
     content   String?
@@ -35,6 +40,19 @@ describe('DataModel', () => {
 
     expect(Object.keys(User)).toEqual(
       ['name', 'dbName', 'fields', 'isGenerated', 'primaryKey', 'uniqueFields', 'uniqueIndexes'],
+    );
+  });
+
+  it('returns enums', async () => {
+    const dataModel = await parse(prismaSchema);
+
+    expect(dataModel.enums).toEqual(
+      {
+        Role: [
+          { name: 'USER', dbName: null },
+          { name: 'ADMIN', dbName: null },
+        ],
+      },
     );
   });
 });
