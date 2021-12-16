@@ -1,5 +1,11 @@
 # GraphQL-Schema-Generator
 
+
+[![CI](https://github.com/prisma-korea/graphql-schema-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/prisma-korea/graphql-schema-generator/actions/workflows/ci.yml)
+
+[![codecov](https://codecov.io/gh/prisma-korea/graphql-schema-generator/branch/master/graph/badge.svg?token=H4VN0S3ES9)](https://codecov.io/gh/prisma-korea/graphql-schema-generator)
+
+
 Generate `GraphQL schema(SDL)` from `Prisma schema` using Prisma generator.
 
 ## Contributing

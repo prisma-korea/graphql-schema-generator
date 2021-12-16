@@ -46,23 +46,18 @@ jobs:
 
       - name: Install modules
         run: pnpm install
-        working-directory: ${{ env.working-directory }}
 
       - name: Check linting
         run: pnpm lint
-        working-directory: ${{ env.working-directory }}
 
       - name: Build typescript
         run: pnpm build
-        working-directory: ${{ env.working-directory }}
 
       - name: Remove dist
         run: rm -rf ./dist*
-        working-directory: ${{ env.working-directory }}
 
       - name: Test
         run: pnpm test -- --coverage --detectOpenHandles --forceExit
-        working-directory: ${{ env.working-directory }}
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.10
