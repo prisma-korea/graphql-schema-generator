@@ -1,13 +1,27 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "baseUrl": "src",
-    "outDir": "dist",
-    "sourceMap": true,
+    "target": "es2018",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "lib": ["es2019", "dom"], // dom is added for prismjs :(
+    "baseUrl": "src",
+    "outDir": "lib",
+    "incremental": true,
+    "lib": ["esnext"],
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": true,
+    "isolatedModules": true,
+
     "strict": true,
-    "esModuleInterop": true
-  }
+    "noImplicitAny": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "useUnknownInCatchVariables": false,
+    "skipDefaultLibCheck": true
+  },
+  "exclude": [
+    "node_modules",
+    "src/**/*.test**",
+    "lib/**/*"
+  ]
 }

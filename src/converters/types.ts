@@ -31,6 +31,8 @@ type Rule = {
   transformer: (field: DMMF.Field, type: DMMF.Field['type']) => string
 }
 
+export type { Rule };
+
 export {
-  SDL, PSL, Scalar, Rule,
+  SDL, PSL, Scalar,
 };
