@@ -8,17 +8,29 @@ const addExclamation = (field: DMMF.Field, type: DMMF.Field['type']) => `${type}
 const rules: Rule[] = [
   {
     matcher: (field) => {
-      const { isList } = field;
+      const { isList, isRequired } = field;
+
+      if (isList) {
+        console.assert(isRequired);
+      }
 
       return isList;
     },
-    transformer: addBrasket,
+    transformer: (field: DMMF.Field, type: DMMF.Field['type']) => {
+      const ret = [
+        addExclamation,
+        addBrasket,
+        addExclamation,
+      ].reduce((acc, cur) => cur(field, acc), type);
+
+      return ret as string;
+    },
   },
   {
     matcher: (field) => {
-      const { isRequired } = field;
+      const { isList, isRequired } = field;
 
-      return isRequired;
+      return !isList && isRequired;
     },
     transformer: addExclamation,
   },

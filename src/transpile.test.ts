@@ -46,7 +46,7 @@ const graphqlSchema = `
     id: ID!
     name: String
     detail: ByteArray
-    posts: [Post]!
+    posts: [Post!]!
   }
 `;
 
