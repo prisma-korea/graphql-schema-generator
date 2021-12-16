@@ -11,7 +11,7 @@
     "dev": "pnpm build && npx prisma generate",
     "build": "tsc",
     "test": "jest",
-    "lint": "eslint src --ext .ts,.js,.svelte"
+    "lint": "eslint src --ext .ts,.js"
   },
   "author": "dooboolab <support@dooboolab.com>",
   "maintainers": [
@@ -62,7 +62,7 @@
     "graphql",
     "schema"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/prisma-korea/graphql-schema-generator/issues"
   },
