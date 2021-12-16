@@ -1,2 +1,5 @@
-*.test.js
-tsconfig.tsbuildinfo
+*
+!dist-cjs
+!dist-esm
+!README.md
+!package.json
