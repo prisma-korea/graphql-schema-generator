@@ -1,5 +1,5 @@
 import {
-  GraphQL, Prisma, Rule, Scalar,
+  SDL, PSL, Rule, Scalar,
 } from '../types';
 
 const rules: Rule[] = [
@@ -7,43 +7,43 @@ const rules: Rule[] = [
     matcher: (field) => {
       const { type } = field;
 
-      if (type === Prisma.Json) {
+      if (type === PSL.Json) {
         return true;
       }
 
       return false;
     },
-    transformer: () => GraphQL.String,
+    transformer: () => SDL.String,
   },
   {
     matcher: (field) => {
       const { type } = field;
 
-      if (type === Prisma.BigInt) {
+      if (type === PSL.BigInt) {
         return true;
       }
 
       return false;
     },
-    transformer: () => GraphQL.Int,
+    transformer: () => SDL.Int,
   },
   {
     matcher: (field) => {
       const { type } = field;
 
-      if (type === Prisma.Decimal) {
+      if (type === PSL.Decimal) {
         return true;
       }
 
       return false;
     },
-    transformer: () => GraphQL.Float,
+    transformer: () => SDL.Float,
   },
   {
     matcher: (field) => {
       const { type } = field;
 
-      if (type === Prisma.Bytes) {
+      if (type === PSL.Bytes) {
         return true;
       }
 
@@ -57,7 +57,7 @@ const rules: Rule[] = [
 
       return isId;
     },
-    transformer: () => GraphQL.ID,
+    transformer: () => SDL.ID,
   },
 ];
 

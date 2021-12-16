@@ -1,6 +1,6 @@
 import { DMMF } from '@prisma/generator-helper';
 
-import { Prisma, Scalar } from 'converters/types';
+import { PSL, Scalar } from 'converters/types';
 import convertType from './converters/convertType';
 import addTypeModifiers from './converters/addTypeModifiers';
 
@@ -65,11 +65,11 @@ const extractScalars = (dataModel: DataModel) => {
     model.fields.forEach((field) => {
       const { type } = field;
 
-      if (type === Prisma.DateTime) {
+      if (type === PSL.DateTime) {
         scalars.add(Scalar.DateTime);
       }
 
-      if (type === Prisma.Bytes) {
+      if (type === PSL.Bytes) {
         scalars.add(Scalar.ByteArray);
       }
     });
