@@ -48,17 +48,17 @@ type User {
 	updatedAt: DateTime
 	deletedAt: DateTime
 	profile: Profile
-	notifications: [Notification]!
-	friends: [Friend]!
-	memberships: [Membership]!
-	blockedUsers: [BlockedUser]!
-	reports: [Report]!
-	messages: [Message]!
-	replys: [Reply]!
-	reactions: [Reaction]!
-	Friend: [Friend]!
-	Report: [Report]!
-	BlockedUser: [BlockedUser]!
+	notifications: [Notification!]!
+	friends: [Friend!]!
+	memberships: [Membership!]!
+	blockedUsers: [BlockedUser!]!
+	reports: [Report!]!
+	messages: [Message!]!
+	replys: [Reply!]!
+	reactions: [Reaction!]!
+	Friend: [Friend!]!
+	Report: [Report!]!
+	BlockedUser: [BlockedUser!]!
 }
 type Notification {
 	id: ID!
@@ -120,8 +120,8 @@ type Channel {
 	id: ID!
 	channelType: ChannelType!
 	name: String
-	messages: [Message]!
-	membership: [Membership]!
+	messages: [Message!]!
+	membership: [Membership!]!
 	lastMessageId: String
 	createdAt: DateTime
 	updatedAt: DateTime
@@ -131,10 +131,10 @@ type Message {
 	id: ID!
 	messageType: MessageType!
 	text: String
-	imageUrls: [String]!
-	fileUrls: [String]!
-	reactions: [Reaction]!
-	replies: [Reply]!
+	imageUrls: [String!]!
+	fileUrls: [String!]!
+	reactions: [Reaction!]!
+	replies: [Reply!]!
 	createdAt: DateTime
 	updatedAt: DateTime
 	deletedAt: DateTime
@@ -147,9 +147,9 @@ type Reply {
 	id: ID!
 	messageType: MessageType!
 	text: String
-	imageUrls: [String]!
-	fileUrls: [String]!
-	reactions: [Reaction]!
+	imageUrls: [String!]!
+	fileUrls: [String!]!
+	reactions: [Reaction!]!
 	createdAt: DateTime
 	updatedAt: DateTime
 	deletedAt: DateTime

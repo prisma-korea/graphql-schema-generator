@@ -2,6 +2,9 @@ import { DMMF } from '@prisma/generator-helper';
 
 import { SDL, PSL, Scalar } from './types';
 import convertScalar from './convertScalar';
+import store from '../store';
+
+jest.mock('../store');
 
 describe('convertScalar', () => {
   it.each(['String', 'Boolean', 'Int', 'Float'])('does nothing for %s', (type) => {
@@ -38,12 +41,24 @@ describe('convertScalar', () => {
     expect(convertScalar(field as DMMF.Field)).toBe(SDL.Float);
   });
 
-  it('converts Bytes to ByteArray', () => {
+  it('converts Bytes to ByteArray, and store it to store for generating scalar', () => {
     const field = {
       type: PSL.Bytes,
     };
 
     expect(convertScalar(field as DMMF.Field)).toBe(Scalar.ByteArray);
+
+    expect(store.addScalar).toBeCalledWith(Scalar.ByteArray);
+  });
+
+  it('stores DateTime to store for generating scalar', () => {
+    const field = {
+      type: PSL.DateTime,
+    };
+
+    expect(convertScalar(field as DMMF.Field)).toBe(Scalar.DateTime);
+
+    expect(store.addScalar).toBeCalledWith(Scalar.DateTime);
   });
 
   it('converts every type declared as @id to ID', () => {
