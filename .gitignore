@@ -1,8 +1,8 @@
-/node_modules/
+node_modules
 
 .vscode
 .DS_Store
 .env
 
-dist
+lib
 coverage

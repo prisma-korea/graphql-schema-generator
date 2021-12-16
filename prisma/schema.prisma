@@ -1,12 +1,11 @@
-generator graphql {
-  provider = "node ./dist/index.js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+generator graphql {
+  provider = "node ./lib/index.js"
+}
 
 // Try yours! Schema below is from here:
 // https://github.com/dooboolab/hackatalk/blob/master/server/prisma/schema.prisma

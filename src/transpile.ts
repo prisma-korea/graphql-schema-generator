@@ -1,14 +1,11 @@
 import { DMMF } from '@prisma/generator-helper';
-
-import { PSL, Scalar } from 'converters/types';
-import convertType from './converters/convertType';
-import addTypeModifiers from './converters/addTypeModifiers';
-
-import formatDefinition from './formatters/formatDefinition';
-import formatScalar from './formatters/formatScalar';
-import formatField from './formatters/formatField';
-
+import { Scalar, PSL } from 'converters/types';
 import { DataModel } from './parse';
+import addTypeModifiers from './converters/addTypeModifiers';
+import convertType from './converters/convertType';
+import formatDefinition from './formatters/formatDefinition';
+import formatField from './formatters/formatField';
+import formatScalar from './formatters/formatScalar';
 
 const getFieldTypePair = (model: DMMF.Model) => {
   if (!model) {
