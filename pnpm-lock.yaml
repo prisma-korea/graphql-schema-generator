@@ -16,6 +16,7 @@ specifiers:
   eslint-import-resolver-typescript: ^2.5.0
   eslint-plugin-import: ^2.25.3
   jest: ^27.3.1
+  jest-diff: ^27.4.2
   jest-transform-stub: ^2.0.0
   prettier: ^2.5.1
   prisma: 3.4.0
@@ -43,6 +44,7 @@ devDependencies:
   eslint-import-resolver-typescript: 2.5.0_581d2b6245defd0595f2dd29dbf58da2
   eslint-plugin-import: 2.25.3_eslint@8.4.1
   jest: 27.4.5
+  jest-diff: 27.4.2
   jest-transform-stub: 2.0.0
   prettier: 2.5.1
   prisma: 3.4.0
