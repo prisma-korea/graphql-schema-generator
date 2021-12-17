@@ -1,0 +1,170 @@
+scalar DateTime
+enum Gender {
+	male
+	femal
+}
+enum AuthType {
+	email
+	facebook
+	google
+	apple
+}
+enum MembershipType {
+	owner
+	admin
+	member
+}
+enum AlertMode {
+	sound
+	vibrate
+	silent
+}
+enum ChannelType {
+	private
+	public
+	self
+}
+enum MessageType {
+	text
+	photo
+	file
+}
+type User {
+	id: ID!
+	email: String
+	password: String
+	name: String
+	nickname: String
+	thumbURL: String
+	photoURL: String
+	birthday: DateTime
+	gender: Gender
+	phone: String
+	statusMessage: String
+	verified: Boolean
+	lastSignedIn: DateTime
+	isOnline: Boolean
+	createdAt: DateTime
+	updatedAt: DateTime
+	deletedAt: DateTime
+	profile: Profile
+	notifications: [Notification!]!
+	friends: [Friend!]!
+	memberships: [Membership!]!
+	blockedUsers: [BlockedUser!]!
+	reports: [Report!]!
+	messages: [Message!]!
+	replys: [Reply!]!
+	reactions: [Reaction!]!
+	Friend: [Friend!]!
+	Report: [Report!]!
+	BlockedUser: [BlockedUser!]!
+}
+type Notification {
+	id: ID!
+	token: String!
+	device: String
+	os: String
+
+	user: User!
+	createdAt: DateTime
+}
+type Profile {
+	id: ID!
+	socialId: String
+	authType: AuthType
+
+	User: User!
+}
+type Friend {
+	createdAt: DateTime
+	updatedAt: DateTime
+	deletedAt: DateTime
+
+	user: User!
+
+	friend: User!
+}
+type BlockedUser {
+	createdAt: DateTime
+	updatedAt: DateTime
+	deletedAt: DateTime
+
+	user: User!
+
+	blockedUser: User!
+}
+type Report {
+	id: ID!
+	report: String!
+	createdAt: DateTime
+	updatedAt: DateTime
+	deletedAt: DateTime
+
+	user: User!
+
+	reportedUser: User!
+}
+type Membership {
+	alertMode: AlertMode
+	membershipType: MembershipType!
+	isVisible: Boolean!
+	createdAt: DateTime
+	updatedAt: DateTime
+
+	user: User!
+
+	channel: Channel!
+}
+type Channel {
+	id: ID!
+	channelType: ChannelType!
+	name: String
+	messages: [Message!]!
+	membership: [Membership!]!
+	lastMessageId: String
+	createdAt: DateTime
+	updatedAt: DateTime
+	deletedAt: DateTime
+}
+type Message {
+	id: ID!
+	messageType: MessageType!
+	text: String
+	imageUrls: [String!]!
+	fileUrls: [String!]!
+	reactions: [Reaction!]!
+	replies: [Reply!]!
+	createdAt: DateTime
+	updatedAt: DateTime
+	deletedAt: DateTime
+
+	channel: Channel!
+
+	sender: User!
+}
+type Reply {
+	id: ID!
+	messageType: MessageType!
+	text: String
+	imageUrls: [String!]!
+	fileUrls: [String!]!
+	reactions: [Reaction!]!
+	createdAt: DateTime
+	updatedAt: DateTime
+	deletedAt: DateTime
+
+	sender: User!
+
+	message: Message!
+}
+type Reaction {
+	id: ID!
+	value: String!
+
+	user: User!
+
+	message: Message!
+
+	reply: Reply!
+}

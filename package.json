@@ -22,7 +22,8 @@
   "dependencies": {
     "@prisma/generator-helper": "^3.5.0",
     "@prisma/sdk": "^3.5.0",
-    "typescript-eslint": "^0.0.1-alpha.0"
+    "typescript-eslint": "^0.0.1-alpha.0",
+    "jest-diff": "^27.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
