@@ -11,8 +11,6 @@ GraphQL-Schema-Generator relies on [Prisma Generator](https://prismaio.notion.si
 ![Architecture](https://user-images.githubusercontent.com/61503739/146618416-1b4334a1-955a-47e3-8ca0-3806a1d8f6c8.png)
 `1. Parse Schema, 2. Provide DMMF` is done by `@prisma/sdk` and `3. parse.ts, 4. transpile.ts` is from this codebase.
 
-Note that actual parsing is done in `@prisma/sdk`, but we don't use the result of parser directly. From DMMF, we build our own `DataModel` which our transpiler is consuming. That's why `parser.ts` is named 'parser'.
-
 ## development
 
 Currently, there're three ways to see how changes you made affects the output.
