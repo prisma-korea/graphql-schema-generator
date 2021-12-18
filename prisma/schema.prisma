@@ -5,6 +5,7 @@ datasource db {
 
 generator graphql {
   provider = "node ./dist-cjs/index.js"
+  output = "./generated"
 }
 
 // Try yours! Schema below is from here:
