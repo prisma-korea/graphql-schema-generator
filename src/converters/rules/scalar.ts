@@ -1,11 +1,9 @@
-import {
-  SDL, PSL, Rule, Scalar,
-} from '../types';
+import {PSL, Rule, SDL, Scalar} from '../types';
 
 const rules: Rule[] = [
   {
     matcher: (field) => {
-      const { type } = field;
+      const {type} = field;
 
       if (type === PSL.Json) {
         return true;
@@ -17,7 +15,7 @@ const rules: Rule[] = [
   },
   {
     matcher: (field) => {
-      const { type } = field;
+      const {type} = field;
 
       if (type === PSL.BigInt) {
         return true;
@@ -29,7 +27,7 @@ const rules: Rule[] = [
   },
   {
     matcher: (field) => {
-      const { type } = field;
+      const {type} = field;
 
       if (type === PSL.Decimal) {
         return true;
@@ -41,7 +39,7 @@ const rules: Rule[] = [
   },
   {
     matcher: (field) => {
-      const { type } = field;
+      const {type} = field;
 
       if (type === PSL.Bytes) {
         return true;
@@ -53,7 +51,7 @@ const rules: Rule[] = [
   },
   {
     matcher: (field) => {
-      const { isId } = field;
+      const {isId} = field;
 
       return isId;
     },

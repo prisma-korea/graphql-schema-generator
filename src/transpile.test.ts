@@ -1,7 +1,6 @@
 import parse from './parse';
+import {removeWhiteSpaces} from './utils';
 import transpile from './transpile';
-
-import { removeWhiteSpaces } from './utils';
 
 describe('transpile', () => {
   it('adds scalars', async () => {
@@ -28,8 +27,9 @@ describe('transpile', () => {
 
     const model = await parse(prismaSchema);
 
-    expect(removeWhiteSpaces(transpile(model)))
-      .toBe(removeWhiteSpaces(graphqlSchema));
+    expect(removeWhiteSpaces(transpile(model))).toBe(
+      removeWhiteSpaces(graphqlSchema),
+    );
   });
 
   it('adds enums', async () => {
@@ -57,8 +57,9 @@ describe('transpile', () => {
 
     const model = await parse(prismaSchema);
 
-    expect(removeWhiteSpaces(transpile(model)))
-      .toBe(removeWhiteSpaces(graphqlSchema));
+    expect(removeWhiteSpaces(transpile(model))).toBe(
+      removeWhiteSpaces(graphqlSchema),
+    );
   });
 
   it('adds models', async () => {
@@ -99,7 +100,8 @@ describe('transpile', () => {
 
     const model = await parse(prismaSchema);
 
-    expect(removeWhiteSpaces(transpile(model)))
-      .toBe(removeWhiteSpaces(graphqlSchema));
+    expect(removeWhiteSpaces(transpile(model))).toBe(
+      removeWhiteSpaces(graphqlSchema),
+    );
   });
 });

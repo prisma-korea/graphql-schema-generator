@@ -16,7 +16,7 @@
   "author": "dooboolab <support@dooboolab.com>",
   "maintainers": [
     "Jayden <jayden@dooboolab.com>",
-    "Hyo <hyo@dooboolab.com"
+    "Hyo <hyo@dooboolab.com>"
   ],
   "sideEffects": false,
   "dependencies": {
@@ -26,6 +26,7 @@
     "jest-diff": "^27.4.2"
   },
   "devDependencies": {
+    "@dooboo/eslint-config": "^1.2.1",
     "@babel/core": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-typescript": "^7.15.0",

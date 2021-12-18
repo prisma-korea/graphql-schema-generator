@@ -1,13 +1,12 @@
-import { DMMF } from '@prisma/generator-helper';
-
-import convertType from './convertType';
+import {DMMF} from '@prisma/generator-helper';
 import convertScalar from './convertScalar';
+import convertType from './convertType';
 
 jest.mock('./convertScalar');
 
 describe('typeConverter', () => {
   it('calls other converters by field kind', () => {
-    const field = { kind: 'scalar' };
+    const field = {kind: 'scalar'};
 
     convertType(field as DMMF.Field);
 

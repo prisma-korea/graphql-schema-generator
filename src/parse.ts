@@ -1,8 +1,8 @@
-import { getDMMF } from '@prisma/sdk';
-import { DMMF } from '@prisma/generator-helper';
+import {DMMF} from '@prisma/generator-helper';
+import {getDMMF} from '@prisma/sdk';
 
-export type Models = {[name: string]: DMMF.Model}
-export type Enums = {[name: string]: DMMF.DatamodelEnum['values']}
+export type Models = {[name: string]: DMMF.Model};
+export type Enums = {[name: string]: DMMF.DatamodelEnum['values']};
 
 export class DataModel {
   dataModel: DMMF.Datamodel;
@@ -12,34 +12,34 @@ export class DataModel {
   }
 
   get names(): string[] {
-    const { models } = this.dataModel;
+    const {models} = this.dataModel;
 
     return models.map((model) => model.name);
   }
 
   get models(): Models {
-    const { models } = this.dataModel;
+    const {models} = this.dataModel;
 
     return models.reduce((acc, model) => {
-      const { name } = model;
+      const {name} = model;
 
-      return { ...acc, [name]: model };
+      return {...acc, [name]: model};
     }, {});
   }
 
   get enums(): Enums {
-    const { enums } = this.dataModel;
+    const {enums} = this.dataModel;
 
     return enums.reduce((acc, cur) => {
-      const { name, values } = cur;
+      const {name, values} = cur;
 
-      return { ...acc, [name]: values };
+      return {...acc, [name]: values};
     }, {});
   }
 }
 
 const parse = async (prismaSchema: string): Promise<DataModel> => {
-  const dmmf = await getDMMF({ datamodel: prismaSchema });
+  const dmmf = await getDMMF({datamodel: prismaSchema});
 
   return new DataModel(dmmf.datamodel);
 };

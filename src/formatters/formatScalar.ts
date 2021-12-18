@@ -1,3 +1,3 @@
-const formatScalar = (name: string) => `scalar ${name}\n`;
+const formatScalar = (name: string): string => `scalar ${name}\n`;
 
 export default formatScalar;
