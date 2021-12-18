@@ -18,11 +18,12 @@ Generate **GraphQL schema (SDL)** from **Prisma schema** using a custom Prisma g
 
 2. Add the generator to the `schema.prisma`:
 
-   ```prisma
-   generator graphql {
-     provider = "graphql-schema-generator"
-   }
-   ```
+```prisma
+generator graphql {
+  provider = "graphql-schema-generator"
+  # output = "./generated" This default path.
+}
+```
 
 3. Run `npx prisma generate` to run the generator
 
