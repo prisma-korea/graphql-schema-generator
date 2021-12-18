@@ -3,8 +3,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { generatorHandler } from '@prisma/generator-helper';
-
+import {generatorHandler} from '@prisma/generator-helper';
 import parse from './parse';
 import transpile from './transpile';
 
@@ -32,7 +31,9 @@ generatorHandler({
           graphqlSchema,
         );
       } catch (e) {
-        console.error('Error: unable to write files for GraphQL-Schema-Generator');
+        console.error(
+          'Error: unable to write files for GraphQL-Schema-Generator',
+        );
         throw e;
       }
     } else {

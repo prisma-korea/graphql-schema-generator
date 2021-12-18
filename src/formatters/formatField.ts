@@ -1,7 +1,7 @@
-import { DMMF } from '@prisma/generator-helper';
+import {DMMF} from '@prisma/generator-helper';
 
-const formatField = (field: DMMF.Field) => {
-  const { name, type } = field;
+const formatField = (field: DMMF.Field): string => {
+  const {name, type} = field;
 
   return `\t${name}: ${type}`;
 };

@@ -1,4 +1,4 @@
-import { DMMF } from '@prisma/generator-helper';
+import {DMMF} from '@prisma/generator-helper';
 
 enum SDL {
   ID = 'ID',
@@ -18,7 +18,7 @@ enum PSL {
   DateTime = 'DateTime',
   Json = 'Json',
   Bytes = 'Bytes',
-  Unsupported = 'Unsupported'
+  Unsupported = 'Unsupported',
 }
 
 enum Scalar {
@@ -27,12 +27,10 @@ enum Scalar {
 }
 
 type Rule = {
-  matcher: (field: DMMF.Field) => boolean
-  transformer: (field: DMMF.Field, type: DMMF.Field['type']) => string
-}
-
-export type { Rule };
-
-export {
-  SDL, PSL, Scalar,
+  matcher: (field: DMMF.Field) => boolean;
+  transformer: (field: DMMF.Field, type: DMMF.Field['type']) => string;
 };
+
+export type {Rule};
+
+export {SDL, PSL, Scalar};

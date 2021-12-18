@@ -1,18 +1,21 @@
-import { DMMF } from '@prisma/generator-helper';
+import {PSL, SDL, Scalar} from './types';
 
-import { SDL, PSL, Scalar } from './types';
+import {DMMF} from '@prisma/generator-helper';
 import convertScalar from './convertScalar';
 
 describe('convertScalar', () => {
-  it.each(['String', 'Boolean', 'Int', 'Float'])('does nothing for %s', (type) => {
-    type T = 'String' | 'Boolean' | 'Int' | 'Float'
+  it.each(['String', 'Boolean', 'Int', 'Float'])(
+    'does nothing for %s',
+    (type) => {
+      type T = 'String' | 'Boolean' | 'Int' | 'Float';
 
-    const field = {
-      type: PSL[type as T],
-    };
+      const field = {
+        type: PSL[type as T],
+      };
 
-    expect(convertScalar(field as DMMF.Field)).toBe(SDL[type as T]);
-  });
+      expect(convertScalar(field as DMMF.Field)).toBe(SDL[type as T]);
+    },
+  );
 
   it('converts Json -> String', () => {
     const field = {
@@ -47,10 +50,20 @@ describe('convertScalar', () => {
   });
 
   it('converts every type declared as @id to ID', () => {
-    expect(convertScalar({ type: PSL.String, isId: false } as DMMF.Field)).toBe(SDL.String);
-    expect(convertScalar({ type: PSL.Json, isId: false } as DMMF.Field)).toBe(SDL.String);
+    expect(convertScalar({type: PSL.String, isId: false} as DMMF.Field)).toBe(
+      SDL.String,
+    );
 
-    expect(convertScalar({ type: PSL.String, isId: true } as DMMF.Field)).toBe(SDL.ID);
-    expect(convertScalar({ type: PSL.Json, isId: true } as DMMF.Field)).toBe(SDL.ID);
+    expect(convertScalar({type: PSL.Json, isId: false} as DMMF.Field)).toBe(
+      SDL.String,
+    );
+
+    expect(convertScalar({type: PSL.String, isId: true} as DMMF.Field)).toBe(
+      SDL.ID,
+    );
+
+    expect(convertScalar({type: PSL.Json, isId: true} as DMMF.Field)).toBe(
+      SDL.ID,
+    );
   });
 });

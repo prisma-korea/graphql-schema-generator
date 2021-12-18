@@ -1,9 +1,10 @@
 import * as fs from 'fs';
-import { diff } from 'jest-diff';
 
+import {diff} from 'jest-diff';
 import parse from '../parse';
 import transpile from '../transpile';
 
+// eslint-disable-next-line jest/no-disabled-tests
 it.skip('diff', async () => {
   const sourcePath = './prisma/schema.prisma';
   const cachePath = 'src/diff/previous.cache';
