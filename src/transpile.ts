@@ -38,10 +38,10 @@ const getFieldTypePair = (model: DMMF.Model): string[] => {
       return '';
     }
 
-    const steps = [convertType, addTypeModifiers];
+    const transformers = [convertType, addTypeModifiers];
 
-    const typeTransformedField = steps.reduce((acc, step) => {
-      const type = step(acc);
+    const typeTransformedField = transformers.reduce((acc, transformer) => {
+      const type = transformer(acc);
 
       return {...acc, type};
     }, field);
