@@ -1,5 +1,5 @@
-import store from 'store';
 import {PSL, Rule, SDL, Scalar} from '../types';
+import extractId from 'extractors/extractId';
 
 const rules: Rule[] = [
   {
@@ -60,10 +60,11 @@ const rules: Rule[] = [
   },
   {
     matcher: (field, model) => {
-      const {name} = model;
+      const idField = extractId(model);
+
       const {isUnique} = field;
 
-      return !store.ids[name] && isUnique;
+      return !idField && isUnique;
     },
     transformer: () => SDL.ID,
   },

@@ -1,13 +1,8 @@
 import parse from './parse';
 import {removeWhiteSpaces} from './utils';
 import transpile from './transpile';
-import store from './store';
 
 describe('transpile', () => {
-  beforeEach(() => {
-    store.reset();
-  });
-
   it('adds scalars', async () => {
     const prismaSchema = /* Prisma */ `
       model Post {

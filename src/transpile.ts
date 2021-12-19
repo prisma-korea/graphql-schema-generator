@@ -2,7 +2,6 @@ import {DMMF} from '@prisma/generator-helper';
 
 import {DataModel} from './parse';
 
-import extractId from 'extractors/extractId';
 import extractScalars from './extractors/extractScalars';
 
 import addTypeModifiers from './converters/addTypeModifiers';
@@ -11,7 +10,6 @@ import convertType from './converters/convertType';
 import formatDefinition from './formatters/formatDefinition';
 import formatField from './formatters/formatField';
 import formatScalar from './formatters/formatScalar';
-import store from 'store';
 
 const getFieldTypePair = (model: DMMF.Model): string[] => {
   if (!model) {
@@ -32,9 +30,6 @@ const getFieldTypePair = (model: DMMF.Model): string[] => {
     },
     {},
   );
-
-  const idField = extractId(model);
-  store.add({model: model.name, field: idField});
 
   const pairs = model.fields.map((field) => {
     const {name} = field;
