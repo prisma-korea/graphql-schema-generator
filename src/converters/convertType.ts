@@ -3,11 +3,12 @@ import convertScalar from './convertScalar';
 
 const convertType = (
   field: DMMF.Field,
+  model: DMMF.Model,
 ): string | DMMF.SchemaEnum | DMMF.OutputType | DMMF.SchemaArg => {
   const {kind} = field;
 
   if (kind === 'scalar') {
-    return convertScalar(field);
+    return convertScalar(field, model);
   }
 
   // TODO

@@ -6,10 +6,11 @@ jest.mock('./convertScalar');
 
 describe('typeConverter', () => {
   it('calls other converters by field kind', () => {
-    const field = {kind: 'scalar'};
+    const field = {kind: 'scalar'} as DMMF.Field;
+    const model = {} as DMMF.Model;
 
-    convertType(field as DMMF.Field);
+    convertType(field, model);
 
-    expect(convertScalar).toBeCalledWith(field);
+    expect(convertScalar).toBeCalledWith(field, model);
   });
 });

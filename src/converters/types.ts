@@ -27,7 +27,7 @@ enum Scalar {
 }
 
 type Rule = {
-  matcher: (field: DMMF.Field) => boolean;
+  matcher: (field: DMMF.Field, model: DMMF.Model) => boolean;
   transformer: (field: DMMF.Field, type: DMMF.Field['type']) => string;
 };
 

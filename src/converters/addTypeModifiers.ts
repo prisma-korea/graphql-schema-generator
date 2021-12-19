@@ -1,15 +1,17 @@
 import {DMMF} from '@prisma/generator-helper';
+
 import {Rule} from './types';
 import rules from './rules/modifier';
 
 const addTypeModifiers = (
   field: DMMF.Field,
+  model: DMMF.Model,
 ): string | DMMF.SchemaEnum | DMMF.OutputType | DMMF.SchemaArg => {
   const initialType = field.type;
 
   const convertedType = rules.reduce(
     (type, {matcher, transformer}: Rule): string => {
-      if (matcher(field)) {
+      if (matcher(field, model)) {
         return transformer(field, type);
       }
 
