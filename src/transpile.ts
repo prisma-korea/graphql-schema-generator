@@ -1,9 +1,12 @@
-import {PSL, Scalar} from './converters/types';
-
 import {DMMF} from '@prisma/generator-helper';
+
 import {DataModel} from './parse';
+
+import extractScalars from './extractors/extractScalars';
+
 import addTypeModifiers from './converters/addTypeModifiers';
 import convertType from './converters/convertType';
+
 import formatDefinition from './formatters/formatDefinition';
 import formatField from './formatters/formatField';
 import formatScalar from './formatters/formatScalar';
@@ -35,10 +38,10 @@ const getFieldTypePair = (model: DMMF.Model): string[] => {
       return '';
     }
 
-    const transformers = [convertType, addTypeModifiers];
+    const steps = [convertType, addTypeModifiers];
 
-    const typeTransformedField = transformers.reduce((acc, transformer) => {
-      const type = transformer(acc);
+    const typeTransformedField = steps.reduce((acc, step) => {
+      const type = step(acc);
 
       return {...acc, type};
     }, field);
@@ -47,30 +50,6 @@ const getFieldTypePair = (model: DMMF.Model): string[] => {
   });
 
   return pairs;
-};
-
-const extractScalars = (dataModel: DataModel): string[] => {
-  const {models, names} = dataModel;
-
-  const scalars = new Set<string>();
-
-  names.forEach((name) => {
-    const model = models[name];
-
-    model.fields.forEach((field) => {
-      const {type} = field;
-
-      if (type === PSL.DateTime) {
-        scalars.add(Scalar.DateTime);
-      }
-
-      if (type === PSL.Bytes) {
-        scalars.add(Scalar.ByteArray);
-      }
-    });
-  });
-
-  return Array.from(scalars.values());
 };
 
 const transpile = (dataModel: DataModel): string => {
