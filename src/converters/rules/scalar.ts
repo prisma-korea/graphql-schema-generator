@@ -1,3 +1,4 @@
+import store from 'store';
 import {PSL, Rule, SDL, Scalar} from '../types';
 
 const rules: Rule[] = [
@@ -54,6 +55,15 @@ const rules: Rule[] = [
       const {isId} = field;
 
       return isId;
+    },
+    transformer: () => SDL.ID,
+  },
+  {
+    matcher: (field, model) => {
+      const {name} = model;
+      const {isUnique} = field;
+
+      return !store.ids[name] && isUnique;
     },
     transformer: () => SDL.ID,
   },
