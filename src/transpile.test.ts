@@ -1,6 +1,7 @@
+import transpile, {description} from './transpile';
+
 import parse from './parse';
 import {removeWhiteSpaces} from './utils';
-import transpile from './transpile';
 
 describe('transpile', () => {
   it('adds scalars', async () => {
@@ -28,7 +29,7 @@ describe('transpile', () => {
     const model = await parse(prismaSchema);
 
     expect(removeWhiteSpaces(transpile(model))).toBe(
-      removeWhiteSpaces(graphqlSchema),
+      removeWhiteSpaces(description + graphqlSchema),
     );
   });
 
@@ -58,7 +59,7 @@ describe('transpile', () => {
     const model = await parse(prismaSchema);
 
     expect(removeWhiteSpaces(transpile(model))).toBe(
-      removeWhiteSpaces(graphqlSchema),
+      removeWhiteSpaces(description + graphqlSchema),
     );
   });
 
@@ -101,7 +102,7 @@ describe('transpile', () => {
     const model = await parse(prismaSchema);
 
     expect(removeWhiteSpaces(transpile(model))).toBe(
-      removeWhiteSpaces(graphqlSchema),
+      removeWhiteSpaces(description + graphqlSchema),
     );
   });
 });
