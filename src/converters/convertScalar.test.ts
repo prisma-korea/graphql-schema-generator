@@ -92,19 +92,33 @@ describe('convertScalar', () => {
     ).toBe(SDL.ID);
   });
 
-  it('converts @unique to ID if no @id exists', () => {
+  it('converts solo @unique to ID if no @id exists', () => {
     expect(
       convertScalar(
         {type: PSL.String, isUnique: true, isId: false} as DMMF.Field,
-        {name: 'User', fields: [{isId: false}]} as DMMF.Model,
+        {
+          name: 'User',
+          fields: [
+            {type: PSL.String, isUnique: true, isId: false},
+            {type: PSL.Int, isUnique: false, isId: false},
+          ],
+        } as DMMF.Model,
       ),
     ).toBe(SDL.ID);
+  });
 
+  it('does nothing for multiple @unique even if no @id exists', () => {
     expect(
       convertScalar(
         {type: PSL.String, isUnique: true, isId: false} as DMMF.Field,
-        {name: 'User', fields: [{isId: true}]} as DMMF.Model,
+        {
+          name: 'User',
+          fields: [
+            {type: PSL.String, isUnique: true, isId: false} as DMMF.Field,
+            {type: PSL.Int, isUnique: true, isId: false} as DMMF.Field,
+          ],
+        } as DMMF.Model,
       ),
-    ).toBe(SDL.String);
+    ).toBe(PSL.String);
   });
 });
