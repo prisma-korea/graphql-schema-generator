@@ -57,8 +57,8 @@ jobs:
       - name: Check linting
         run: pnpm lint
 
-      - name: Build typescript
-        run: pnpm build
+      - name: Test
+        run: pnpm test -- --coverage --detectOpenHandles --forceExit
 
       - name: Generate schema.graphql with test data
         run: pnpm dev
@@ -66,7 +66,7 @@ jobs:
       - name: Upload generated schema.graphql
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql"
+          name: ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
           path: prisma/generated/schema.graphql
 
       - uses: actions/download-artifact@v2
@@ -74,13 +74,7 @@ jobs:
           name: ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
     
       - name: Check generated file size
-        run: ls -l ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
-        
-      - name: Remove dist
-        run: rm -rf ./dist*
-
-      - name: Test
-        run: pnpm test -- --coverage --detectOpenHandles --forceExit
+        run: ls -l /home/runner/work/graphql-schema-generator/graphql-schema-generator/${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.10
