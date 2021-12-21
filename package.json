@@ -7,7 +7,7 @@
     "node": ">=12.6"
   },
   "scripts": {
-    "dev": "pnpm build && npx prisma generate",
+    "dev": "pnpm build && rm -rf prisma/generated && npx prisma generate",
     "clean": "rm -rf dist-cjs dist-esm node_modules/.cache",
     "build": "pnpm clean && tsc --build tsconfig.cjs.json tsconfig.esm.json",
     "test": "jest",
