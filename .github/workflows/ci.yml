@@ -68,6 +68,13 @@ jobs:
         with:
           name: "${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql"
           path: prisma/generated/schema.graphql
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
+    
+      - name: Check generated file size
+          run: ls -l ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
         
       - name: Remove dist
         run: rm -rf ./dist*
