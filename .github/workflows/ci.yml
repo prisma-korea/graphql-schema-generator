@@ -58,12 +58,14 @@ jobs:
         run: pnpm build
 
       - name: Generate schema.graphql with test data
+        run: pnpm dev
+
+      - name: Generate schema.graphql with test data
         uses: actions/upload-artifact@v2
         with:
           name: "${{ steps.current-time.outputs.readableTime }}-schema.graphql"
           path: prisma/generated/schema.graphql
-        run: pnpm dev
-
+        
       - name: Remove dist
         run: rm -rf ./dist*
 
