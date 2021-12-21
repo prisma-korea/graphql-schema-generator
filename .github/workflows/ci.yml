@@ -36,6 +36,13 @@ jobs:
           - 5432:5432
 
     steps:
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HH-mm-ss
+          utcOffset: "+09:00"
+
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -50,14 +57,18 @@ jobs:
       - name: Check linting
         run: pnpm lint
 
-      - name: Build typescript
-        run: pnpm build
-
-      - name: Remove dist
-        run: rm -rf ./dist*
-
       - name: Test
         run: pnpm test -- --coverage --detectOpenHandles --forceExit
+
+      - name: Generate schema.graphql with test data
+        run: pnpm dev
+
+      - name: Upload generated schema.graphql
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
+          path: prisma/generated/schema.graphql
+          if-no-files-found: error
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.10
