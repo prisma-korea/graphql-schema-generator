@@ -1,6 +1,6 @@
 import {PSL, Rule, SDL, Scalar} from '../types';
-import extractId from 'extractors/extractId';
-import extractUniques from 'extractors/extractUniques';
+import extractId from '../../extractors/extractId';
+import extractUniques from '../../extractors/extractUniques';
 
 const rules: Rule[] = [
   {

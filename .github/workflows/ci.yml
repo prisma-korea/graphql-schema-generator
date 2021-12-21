@@ -36,6 +36,10 @@ jobs:
           - 5432:5432
 
     steps:
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -52,6 +56,13 @@ jobs:
 
       - name: Build typescript
         run: pnpm build
+
+      - name: Generate schema.graphql with test data
+        uses: actions/upload-artifact@v2
+        with:
+          name: "${{ steps.current-time.outputs.readableTime }}-schema.graphql"
+          path: prisma/generated/schema.graphql
+        run: pnpm dev
 
       - name: Remove dist
         run: rm -rf ./dist*
