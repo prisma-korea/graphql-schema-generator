@@ -60,10 +60,10 @@ jobs:
       - name: Generate schema.graphql with test data
         run: pnpm dev
 
-      - name: Generate schema.graphql with test data
+      - name: Upload generated schema.graphql
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ steps.current-time.outputs.readableTime }}-schema.graphql"
+          name: "${{ steps.current-time.outputs.time }}-schema.graphql"
           path: prisma/generated/schema.graphql
         
       - name: Remove dist
