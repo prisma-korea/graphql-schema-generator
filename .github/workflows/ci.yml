@@ -68,13 +68,7 @@ jobs:
         with:
           name: ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
           path: prisma/generated/schema.graphql
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: ${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
-    
-      - name: Check generated file size
-        run: ls -l /home/runner/work/graphql-schema-generator/graphql-schema-generator/${{ steps.current-time.outputs.formattedTime }}-KST-schema.graphql
+          if-no-files-found: error
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1.0.10
