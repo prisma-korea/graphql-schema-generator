@@ -39,6 +39,8 @@ jobs:
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
+        with:
+          format: YYYYMMDD-HH-mm-ss
 
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -63,7 +65,7 @@ jobs:
       - name: Upload generated schema.graphql
         uses: actions/upload-artifact@v2
         with:
-          name: "${{ steps.current-time.outputs.time }}-schema.graphql"
+          name: "${{ steps.current-time.outputs.formattedTime }}-schema.graphql"
           path: prisma/generated/schema.graphql
         
       - name: Remove dist
