@@ -6,6 +6,31 @@ maintained by prisma-korea.
 Do not make changes to this file directly.
 Read more about in https://github.com/prisma-korea/graphql-schema-generator.
 """
+type Query {
+  user(id: ID!): User
+  users: [User!]!
+  notification(id: ID!): Notification
+  notifications: [Notification!]!
+  profile(id: ID!): Profile
+  profiles: [Profile!]!
+  friend(id: ID!): Friend
+  friends: [Friend!]!
+  blockeduser(id: ID!): BlockedUser
+  blockedusers: [BlockedUser!]!
+  report(id: ID!): Report
+  reports: [Report!]!
+  membership(id: ID!): Membership
+  memberships: [Membership!]!
+  channel(id: ID!): Channel
+  channels: [Channel!]!
+  message(id: ID!): Message
+  messages: [Message!]!
+  reply(id: ID!): Reply
+  replys: [Reply!]!
+  reaction(id: ID!): Reaction
+  reactions: [Reaction!]!
+}
+
 scalar DateTime
 
 enum Gender {
