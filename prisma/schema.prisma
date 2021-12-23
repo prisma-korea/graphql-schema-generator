@@ -6,6 +6,7 @@ datasource db {
 generator graphql {
   provider = "node ./dist-cjs/index.js"
   output = "./generated"
+  createQuery = "true"
 }
 
 // Try yours! Schema below is from here:

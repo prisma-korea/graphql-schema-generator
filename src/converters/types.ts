@@ -26,6 +26,15 @@ enum Scalar {
   DateTime = 'DateTime',
 }
 
+enum ReservedName {
+  Query = 'Query',
+}
+
+enum Definition {
+  type = 'type',
+  enum = 'enum',
+}
+
 type Rule = {
   matcher: (field: DMMF.Field, model: DMMF.Model) => boolean;
   transformer: (field: DMMF.Field, type: DMMF.Field['type']) => string;
@@ -33,4 +42,4 @@ type Rule = {
 
 export type {Rule};
 
-export {SDL, PSL, Scalar};
+export {SDL, PSL, Scalar, ReservedName, Definition};

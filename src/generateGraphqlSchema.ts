@@ -1,3 +1,4 @@
+import {GeneratorConfig} from '@prisma/generator-helper';
 import parse from './parse';
 import transpile from './transpile';
 
@@ -11,9 +12,12 @@ Read more about in https://github.com/prisma-korea/graphql-schema-generator.
 """
 `;
 
-const generateGraphqlSchema = async (source: string): Promise<string> => {
+const generateGraphqlSchema = async (
+  source: string,
+  config: GeneratorConfig['config'],
+): Promise<string> => {
   const model = await parse(source);
-  const graphqlSchema = transpile(model);
+  const graphqlSchema = transpile(model, config);
 
   return description + graphqlSchema;
 };
