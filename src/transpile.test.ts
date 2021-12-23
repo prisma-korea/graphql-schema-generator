@@ -4,6 +4,43 @@ import parse from './parse';
 import {sdl} from './utils';
 
 describe('transpile', () => {
+  it('adds queries', async () => {
+    const prismaSchema = /* Prisma */ `
+      model User {
+        id      Int    @id
+        content String
+      }
+
+      model Post {
+        email    String  @unique
+        content  String
+      }
+    `;
+
+    const graphqlSchema = sdl(`
+      type Query {
+        user(id: ID!): User
+        users: [User!]!
+        post(email: ID!): Post
+        posts: [Post!]!
+      }
+
+      type User {
+        id: ID!
+        content: String!
+      }
+
+      type Post {
+        email: ID!
+        content: String!
+      }
+    `);
+
+    const model = await parse(prismaSchema);
+
+    expect(transpile(model, {createQuery: 'true'})).toBe(graphqlSchema);
+  });
+
   it('adds scalars', async () => {
     const prismaSchema = /* Prisma */ `
       model Post {

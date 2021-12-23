@@ -15,9 +15,10 @@ generatorHandler({
   },
   async onGenerate(options) {
     const output = options.generator.output?.value;
+    const {config} = options.generator;
 
     if (output) {
-      const result = await generateGraphqlSchema(options.datamodel);
+      const result = await generateGraphqlSchema(options.datamodel, config);
 
       try {
         await fs.promises.mkdir(output, {
