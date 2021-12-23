@@ -1,7 +1,7 @@
-import transpile, {description} from './transpile';
-
+import transpile from './transpile';
 import parse from './parse';
-import {removeWhiteSpaces} from './utils';
+
+import {sdl} from './utils';
 
 describe('transpile', () => {
   it('adds scalars', async () => {
@@ -14,7 +14,7 @@ describe('transpile', () => {
       }
     `;
 
-    const graphqlSchema = `
+    const graphqlSchema = sdl(`
       scalar DateTime
       scalar ByteArray
 
@@ -24,13 +24,11 @@ describe('transpile', () => {
         content1: ByteArray
         content2: ByteArray!
       }
-    `;
+    `);
 
     const model = await parse(prismaSchema);
 
-    expect(removeWhiteSpaces(transpile(model))).toBe(
-      removeWhiteSpaces(description + graphqlSchema),
-    );
+    expect(transpile(model)).toBe(graphqlSchema);
   });
 
   it('adds enums', async () => {
@@ -45,7 +43,7 @@ describe('transpile', () => {
       }
     `;
 
-    const graphqlSchema = `
+    const graphqlSchema = sdl(`
       enum Role {
         USER
         ADMIN
@@ -54,13 +52,11 @@ describe('transpile', () => {
         male
         female
       }
-    `;
+    `);
 
     const model = await parse(prismaSchema);
 
-    expect(removeWhiteSpaces(transpile(model))).toBe(
-      removeWhiteSpaces(description + graphqlSchema),
-    );
+    expect(transpile(model)).toBe(graphqlSchema);
   });
 
   it('adds models', async () => {
@@ -82,7 +78,7 @@ describe('transpile', () => {
       }
     `;
 
-    const graphqlSchema = `
+    const graphqlSchema = sdl(`
       type Post {
         content: String
         id: ID!
@@ -97,12 +93,10 @@ describe('transpile', () => {
         detail: String
         posts: [Post!]!
       }
-    `;
+    `);
 
     const model = await parse(prismaSchema);
 
-    expect(removeWhiteSpaces(transpile(model))).toBe(
-      removeWhiteSpaces(description + graphqlSchema),
-    );
+    expect(transpile(model)).toBe(graphqlSchema);
   });
 });

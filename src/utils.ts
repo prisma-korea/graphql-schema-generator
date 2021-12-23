@@ -1,3 +1,3 @@
-export const removeWhiteSpaces = (s: string): string => s.replace(/\s/g, '');
+import {printSchema, buildSchema} from 'graphql';
 
-export default {};
+export const sdl = (s: string): string => printSchema(buildSchema(s));
