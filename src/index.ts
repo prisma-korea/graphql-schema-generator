@@ -2,10 +2,9 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-
 import {generatorHandler} from '@prisma/generator-helper';
-import parse from './parse';
-import transpile from './transpile';
+
+import generateGraphqlSchema from './generateGraphqlSchema';
 
 generatorHandler({
   onManifest() {
@@ -18,8 +17,7 @@ generatorHandler({
     const output = options.generator.output?.value;
 
     if (output) {
-      const model = await parse(options.datamodel);
-      const graphqlSchema = transpile(model);
+      const result = await generateGraphqlSchema(options.datamodel);
 
       try {
         await fs.promises.mkdir(output, {
@@ -28,7 +26,7 @@ generatorHandler({
 
         await fs.promises.writeFile(
           path.join(output, 'schema.graphql'),
-          graphqlSchema,
+          result,
         );
       } catch (e) {
         console.error(
