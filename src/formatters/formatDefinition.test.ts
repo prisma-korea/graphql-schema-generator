@@ -1,8 +1,9 @@
+import {Definition} from '../converters/types';
 import formatDefinition from './formatDefinition';
 
 describe('formatDefinition', () => {
   it('formats the whole definition', () => {
-    const type = 'enum';
+    const type = Definition.enum;
     const name = 'Model1';
     const fields = ['name1: type1', 'name2: type2'];
 
