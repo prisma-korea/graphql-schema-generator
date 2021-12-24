@@ -1,11 +1,11 @@
-type DefinitionType = 'type' | 'scalar' | 'enum';
+import {Definition} from '../converters/types';
 
 const formatModel = ({
   type,
   name,
   fields,
 }: {
-  type: DefinitionType;
+  type: Definition;
   name: string;
   fields: string[];
 }): string => `${type} ${name} {\n${fields.join('\n')}\n}\n`;
