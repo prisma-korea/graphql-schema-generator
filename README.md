@@ -21,7 +21,7 @@ pnpm install @prisma-korea/graphql-schema-generator
 ```prisma
 generator graphql {
   provider = "graphql-schema-generator"
-  createQuery = "true"
+  createCRUD = "true"
   # output = "./generated" This is default path.
 }
 ```
