@@ -41,6 +41,65 @@ describe('transpile', () => {
     expect(transpile(model, {createQuery: 'true'})).toBe(graphqlSchema);
   });
 
+  it('adds mutations', async () => {
+    const prismaSchema = /* Prisma */ `
+      model User {
+        id      Int    @id
+        content String
+        name    String?
+      }
+
+      model Post {
+        email    String  @unique
+        content  String
+      }
+    `;
+
+    const graphqlSchema = sdl(`
+      input UserCreateInput {
+        content: String!
+        name: String
+      }
+  
+      input UserUpdateInput {
+        content: String
+        name: String
+      }
+
+      input PostCreateInput {
+        content: String!
+      }
+  
+      input PostUpdateInput {
+        content: String
+      }
+
+      type Mutation {
+        createUser(user: UserCreateInput!): User
+        updateUser(user: UserUpdateInput!): User
+        deleteUser(id: ID!): User
+        createPost(post: PostCreateInput!): Post
+        updatePost(post: PostUpdateInput!): Post
+        deletePost(email: ID!): Post
+      }
+
+      type User {
+        id: ID!
+        content: String!
+        name: String
+      }
+
+      type Post {
+        email: ID!
+        content: String!
+      }
+    `);
+
+    const model = await parse(prismaSchema);
+
+    expect(transpile(model, {createMutation: 'true'})).toBe(graphqlSchema);
+  });
+
   it('adds scalars', async () => {
     const prismaSchema = /* Prisma */ `
       model Post {

@@ -5,20 +5,25 @@ import generateGraphqlSchema, {description} from './generateGraphqlSchema';
 jest.mock('./transpile');
 
 describe('generateGraphqlSchema', () => {
-  it('calls transpiler with model and config', async () => {
-    const prismaSchema = /* Prisma */ `
-      model Post {
-        id    Int      @id
-        content1  Bytes
-      }
-    `;
+  it.each([
+    [{createCRUD: 'true'}, {createQuery: 'true', createMutation: 'true'}],
+    [{createCRUD: 'not true'}, {createQuery: 'false', createMutation: 'false'}],
+  ])(
+    'calls transpiler with model and converted config',
+    async (originalConfig, convertedConfig) => {
+      const prismaSchema = /* Prisma */ `
+        model Post {
+          id    Int      @id
+          content1  Bytes
+        }
+      `;
 
-    const config = {createQuery: 'false'};
-    await generateGraphqlSchema(prismaSchema, config);
+      await generateGraphqlSchema(prismaSchema, originalConfig);
 
-    const model = await parse(prismaSchema);
-    expect(transpile).toBeCalledWith(model, config);
-  });
+      const model = await parse(prismaSchema);
+      expect(transpile).toBeCalledWith(model, convertedConfig);
+    },
+  );
 
   it('adds description', async () => {
     const prismaSchema = /* Prisma */ `
