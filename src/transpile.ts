@@ -10,7 +10,7 @@ import formatDefinition from './formatters/formatDefinition';
 import formatField from './formatters/formatField';
 import formatScalar from './formatters/formatScalar';
 
-import {sdl} from './utils';
+import {removeExclamation, sdl} from './utils';
 
 const getTypeConvertedFields = (model: DMMF.Model): DMMF.Field[] => {
   if (!model) {
@@ -86,6 +86,75 @@ const transpile = (
     fields: queryFields,
   });
 
+  const mutationFields = dataModel.names.reduce((acc: string[], name) => {
+    const modelFields = getTypeConvertedFields(models[name]);
+
+    const {name: idName} = modelFields.find(({type}) => {
+      if (typeof type !== 'string') {
+        return false;
+      }
+
+      return type.match(SDL.ID);
+    }) ?? {name: 'id'};
+
+    return [
+      ...acc,
+      `create${name}(${name.toLowerCase()}: ${name}CreateInput!): ${name}`,
+      `update${name}(${name.toLowerCase()}: ${name}UpdateInput!): ${name}`,
+      `delete${name}(${idName}: ID!): ${name}`,
+    ];
+  }, []);
+
+  const mutationInputs = dataModel.names.reduce(
+    (inputs: string[], modelName) => {
+      const modelFields = getTypeConvertedFields(models[modelName]);
+
+      const fieldsWithoutID = modelFields.reduce(
+        (fields: DMMF.Field[], cur) => {
+          const {type} = cur;
+
+          if (typeof type === 'string' && type.match(SDL.ID)) {
+            return fields;
+          }
+
+          return [...fields, cur];
+        },
+        [],
+      );
+
+      const createInputFields = fieldsWithoutID.map(
+        ({name, type}) => `${name}: ${type}`,
+      );
+
+      const updateInputFields = fieldsWithoutID.map(
+        ({name, type}) => `${name}: ${removeExclamation(type as string)}`,
+      );
+
+      return [
+        ...inputs,
+        formatDefinition({
+          type: Definition.input,
+          name: `${modelName}CreateInput`,
+          fields: createInputFields,
+        }) +
+          formatDefinition({
+            type: Definition.input,
+            name: `${modelName}UpdateInput`,
+            fields: updateInputFields,
+          }),
+      ];
+    },
+    [],
+  );
+
+  const mutation = formatDefinition({
+    type: Definition.type,
+    name: ReservedName.Mutation,
+    fields: mutationFields,
+  });
+
+  const mutationsOfSchema = mutationInputs + mutation;
+
   const scalars = extractScalars(dataModel);
 
   const scalarsOfSchema = scalars
@@ -120,6 +189,7 @@ const transpile = (
 
   const schema =
     (options?.createQuery === 'true' ? queriesOfSchema : '') +
+    (options?.createMutation === 'true' ? mutationsOfSchema : '') +
     scalarsOfSchema +
     enumsOfSchema +
     modelsOfSchema;

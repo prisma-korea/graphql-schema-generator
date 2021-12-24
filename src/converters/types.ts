@@ -28,11 +28,13 @@ enum Scalar {
 
 enum ReservedName {
   Query = 'Query',
+  Mutation = 'Mutation',
 }
 
 enum Definition {
   type = 'type',
   enum = 'enum',
+  input = 'input',
 }
 
 type Rule = {

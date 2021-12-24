@@ -17,7 +17,11 @@ const generateGraphqlSchema = async (
   config: GeneratorConfig['config'],
 ): Promise<string> => {
   const model = await parse(source);
-  const graphqlSchema = transpile(model, config);
+
+  const graphqlSchema =
+    config.createCRUD === 'true'
+      ? transpile(model, {createQuery: 'true', createMutation: 'true'})
+      : transpile(model, {createQuery: 'false', createMutation: 'false'});
 
   return description + graphqlSchema;
 };

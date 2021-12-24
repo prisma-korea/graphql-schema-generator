@@ -31,6 +31,292 @@ type Query {
   reactions: [Reaction!]!
 }
 
+input UserCreateInput {
+  email: String
+  password: String
+  name: String
+  nickname: String
+  thumbURL: String
+  photoURL: String
+  birthday: DateTime
+  gender: Gender
+  phone: String
+  statusMessage: String
+  verified: Boolean
+  lastSignedIn: DateTime
+  isOnline: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  profile: Profile
+  notifications: [Notification!]!
+  friends: [Friend!]!
+  memberships: [Membership!]!
+  blockedUsers: [BlockedUser!]!
+  reports: [Report!]!
+  messages: [Message!]!
+  replys: [Reply!]!
+  reactions: [Reaction!]!
+  Friend: [Friend!]!
+  Report: [Report!]!
+  BlockedUser: [BlockedUser!]!
+}
+
+input UserUpdateInput {
+  email: String
+  password: String
+  name: String
+  nickname: String
+  thumbURL: String
+  photoURL: String
+  birthday: DateTime
+  gender: Gender
+  phone: String
+  statusMessage: String
+  verified: Boolean
+  lastSignedIn: DateTime
+  isOnline: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  profile: Profile
+  notifications: [Notification!]
+  friends: [Friend!]
+  memberships: [Membership!]
+  blockedUsers: [BlockedUser!]
+  reports: [Report!]
+  messages: [Message!]
+  replys: [Reply!]
+  reactions: [Reaction!]
+  Friend: [Friend!]
+  Report: [Report!]
+  BlockedUser: [BlockedUser!]
+}
+
+input NotificationCreateInput {
+  token: String!
+  device: String
+  os: String
+  user: User!
+  createdAt: DateTime
+}
+
+input NotificationUpdateInput {
+  token: String
+  device: String
+  os: String
+  user: User
+  createdAt: DateTime
+}
+
+input ProfileCreateInput {
+  socialId: String
+  authType: AuthType
+  User: User!
+}
+
+input ProfileUpdateInput {
+  socialId: String
+  authType: AuthType
+  User: User
+}
+
+input FriendCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User!
+  friend: User!
+}
+
+input FriendUpdateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User
+  friend: User
+}
+
+input BlockedUserCreateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User!
+  blockedUser: User!
+}
+
+input BlockedUserUpdateInput {
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User
+  blockedUser: User
+}
+
+input ReportCreateInput {
+  report: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User!
+  reportedUser: User!
+}
+
+input ReportUpdateInput {
+  report: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  user: User
+  reportedUser: User
+}
+
+input MembershipCreateInput {
+  alertMode: AlertMode
+  membershipType: MembershipType!
+  isVisible: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: User!
+  channel: Channel!
+}
+
+input MembershipUpdateInput {
+  alertMode: AlertMode
+  membershipType: MembershipType
+  isVisible: Boolean
+  createdAt: DateTime
+  updatedAt: DateTime
+  user: User
+  channel: Channel
+}
+
+input ChannelCreateInput {
+  channelType: ChannelType!
+  name: String
+  messages: [Message!]!
+  membership: [Membership!]!
+  lastMessageId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+input ChannelUpdateInput {
+  channelType: ChannelType
+  name: String
+  messages: [Message!]
+  membership: [Membership!]
+  lastMessageId: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+}
+
+input MessageCreateInput {
+  messageType: MessageType!
+  text: String
+  imageUrls: [String!]!
+  fileUrls: [String!]!
+  reactions: [Reaction!]!
+  replies: [Reply!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  channel: Channel!
+  sender: User!
+}
+
+input MessageUpdateInput {
+  messageType: MessageType
+  text: String
+  imageUrls: [String!]
+  fileUrls: [String!]
+  reactions: [Reaction!]
+  replies: [Reply!]
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  channel: Channel
+  sender: User
+}
+
+input ReplyCreateInput {
+  messageType: MessageType!
+  text: String
+  imageUrls: [String!]!
+  fileUrls: [String!]!
+  reactions: [Reaction!]!
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  sender: User!
+  message: Message!
+}
+
+input ReplyUpdateInput {
+  messageType: MessageType
+  text: String
+  imageUrls: [String!]
+  fileUrls: [String!]
+  reactions: [Reaction!]
+  createdAt: DateTime
+  updatedAt: DateTime
+  deletedAt: DateTime
+  sender: User
+  message: Message
+}
+
+input ReactionCreateInput {
+  value: String!
+  user: User!
+  message: Message!
+  reply: Reply!
+}
+
+input ReactionUpdateInput {
+  value: String
+  user: User
+  message: Message
+  reply: Reply
+}
+
+type Mutation {
+  createUser(user: UserCreateInput!): User
+  updateUser(user: UserUpdateInput!): User
+  deleteUser(id: ID!): User
+  createNotification(notification: NotificationCreateInput!): Notification
+  updateNotification(notification: NotificationUpdateInput!): Notification
+  deleteNotification(id: ID!): Notification
+  createProfile(profile: ProfileCreateInput!): Profile
+  updateProfile(profile: ProfileUpdateInput!): Profile
+  deleteProfile(id: ID!): Profile
+  createFriend(friend: FriendCreateInput!): Friend
+  updateFriend(friend: FriendUpdateInput!): Friend
+  deleteFriend(id: ID!): Friend
+  createBlockedUser(blockeduser: BlockedUserCreateInput!): BlockedUser
+  updateBlockedUser(blockeduser: BlockedUserUpdateInput!): BlockedUser
+  deleteBlockedUser(id: ID!): BlockedUser
+  createReport(report: ReportCreateInput!): Report
+  updateReport(report: ReportUpdateInput!): Report
+  deleteReport(id: ID!): Report
+  createMembership(membership: MembershipCreateInput!): Membership
+  updateMembership(membership: MembershipUpdateInput!): Membership
+  deleteMembership(id: ID!): Membership
+  createChannel(channel: ChannelCreateInput!): Channel
+  updateChannel(channel: ChannelUpdateInput!): Channel
+  deleteChannel(id: ID!): Channel
+  createMessage(message: MessageCreateInput!): Message
+  updateMessage(message: MessageUpdateInput!): Message
+  deleteMessage(id: ID!): Message
+  createReply(reply: ReplyCreateInput!): Reply
+  updateReply(reply: ReplyUpdateInput!): Reply
+  deleteReply(id: ID!): Reply
+  createReaction(reaction: ReactionCreateInput!): Reaction
+  updateReaction(reaction: ReactionUpdateInput!): Reaction
+  deleteReaction(id: ID!): Reaction
+}
+
 scalar DateTime
 
 enum Gender {
