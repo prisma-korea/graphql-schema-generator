@@ -44,7 +44,3 @@ Password will be ignored when generating the schema.
 ## Contributing
 
 Any contributions are welcome. If you are interested, check out our [guidelines](https://github.com/prisma-korea/graphql-schema-generator/blob/master/CONTRIBUTING.md).
-
-```
-
-```
