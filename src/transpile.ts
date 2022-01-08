@@ -19,12 +19,16 @@ const getTypeConvertedFields = (model: DMMF.Model): DMMF.Field[] => {
 
   const shouldIgnore = model.fields.reduce(
     (acc: {[key: string]: boolean}, cur: DMMF.Field) => {
-      const {relationFromFields} = cur;
+      const {relationFromFields, documentation} = cur;
 
       if (relationFromFields) {
         relationFromFields.forEach((field: string) => {
           acc[field] = true;
         });
+      }
+      // check if documentation is not empty and has @render(IGNORE) match
+      if (documentation && documentation.match(/@render\(IGNORE\)/)) {
+        acc[cur.name] = true;
       }
 
       return acc;
@@ -35,7 +39,6 @@ const getTypeConvertedFields = (model: DMMF.Model): DMMF.Field[] => {
   const typeConvertedFields = model.fields.reduce(
     (collected: DMMF.Field[], field: DMMF.Field): DMMF.Field[] => {
       const {name} = field;
-
       if (shouldIgnore[name]) {
         return collected;
       }
@@ -61,10 +64,8 @@ const transpile = (
   options?: GeneratorConfig['config'],
 ): string => {
   const {models, enums, names} = dataModel;
-
   const queryFields = dataModel.names.reduce((acc: string[], name) => {
     const modelFields = getTypeConvertedFields(models[name]);
-
     const {name: idName} = modelFields.find(({type}) => {
       if (typeof type !== 'string') {
         return false;
@@ -88,7 +89,14 @@ const transpile = (
 
   const mutationFields = dataModel.names.reduce((acc: string[], name) => {
     const modelFields = getTypeConvertedFields(models[name]);
-
+    // Do not add mutations for models with all fields ignored
+    if (modelFields.length === 0) {
+      return acc;
+    }
+    // Do not add mutations for models with only id field
+    if (modelFields.length === 1 && modelFields[0].name === 'id') {
+      return acc;
+    }
     const {name: idName} = modelFields.find(({type}) => {
       if (typeof type !== 'string') {
         return false;
@@ -121,7 +129,9 @@ const transpile = (
         },
         [],
       );
-
+      if (!fieldsWithoutID.length) {
+        return inputs;
+      }
       const createInputFields = fieldsWithoutID.map(
         ({name, type}) => `${name}: ${type}`,
       );
@@ -147,13 +157,18 @@ const transpile = (
     [],
   );
 
-  const mutation = formatDefinition({
-    type: Definition.type,
-    name: ReservedName.Mutation,
-    fields: mutationFields,
-  });
+  let mutationsOfSchema: string = '';
 
-  const mutationsOfSchema = mutationInputs + mutation;
+  // Only add mutations if there are any mutation inputs
+  if (mutationInputs.length) {
+    const mutation = formatDefinition({
+      type: Definition.type,
+      name: ReservedName.Mutation,
+      fields: mutationFields,
+    });
+
+    mutationsOfSchema = mutationInputs + mutation;
+  }
 
   const scalars = extractScalars(dataModel);
 
@@ -193,7 +208,6 @@ const transpile = (
     scalarsOfSchema +
     enumsOfSchema +
     modelsOfSchema;
-
   return sdl(schema);
 };
 

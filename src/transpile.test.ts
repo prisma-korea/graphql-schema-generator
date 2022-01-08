@@ -195,4 +195,46 @@ describe('transpile', () => {
 
     expect(transpile(model)).toBe(graphqlSchema);
   });
+
+  it('ignore fields with "/// @render(IGNORE)" comment', async () => {
+    const prismaSchema = /* Prisma */ `
+      model Post {
+        authorId  Int?
+        content   String?
+        id        Int     @default(autoincrement()) @id
+        published Boolean @default(false)
+        author    User?   @relation(fields: [authorId], references: [id])
+      }
+
+      model User {
+        email String  @unique
+        id    Int     @default(autoincrement()) @id
+        name  String?
+        detail String?
+        /// @render(IGNORE)
+        posts Post[]
+        password String? /// @render(IGNORE)
+      }
+    `;
+
+    const graphqlSchema = sdl(`
+      type Post {
+        content: String
+        id: ID!
+        published: Boolean!
+        author: User
+      }
+
+      type User {
+        email: String!
+        id: ID!
+        name: String
+        detail: String
+      }
+    `);
+
+    const model = await parse(prismaSchema);
+
+    expect(transpile(model)).toBe(graphqlSchema);
+  });
 });
