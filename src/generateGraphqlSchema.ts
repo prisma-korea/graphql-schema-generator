@@ -1,6 +1,7 @@
-import {GeneratorConfig} from '@prisma/generator-helper';
 import parse from './parse';
 import transpile from './transpile';
+
+import type {Rule} from './converters/types';
 
 export const description = `
 """
@@ -11,10 +12,14 @@ Do not make changes to this file directly.
 Read more about in https://github.com/prisma-korea/graphql-schema-generator.
 """
 `;
+export type Config = {
+  customRules?: Rule[];
+  [key: string]: any;
+};
 
 const generateGraphqlSchema = async (
   source: string,
-  config: GeneratorConfig['config'],
+  config: Config,
 ): Promise<string> => {
   const model = await parse(source);
 

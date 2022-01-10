@@ -9,6 +9,7 @@ specifiers:
   '@prisma/generator-helper': ^3.5.0
   '@prisma/sdk': ^3.5.0
   '@types/jest': ^27.0.2
+  '@types/jest-plugin-context': ^2.9.4
   '@typescript-eslint/eslint-plugin': ^5.7.0
   '@typescript-eslint/parser': ^5.7.0
   babel-jest: ^27.3.1
@@ -19,6 +20,7 @@ specifiers:
   graphql: ^16.2.0
   jest: ^27.3.1
   jest-diff: ^27.4.2
+  jest-plugin-context: ^2.9.0
   jest-transform-stub: ^2.0.0
   prettier: ^2.5.1
   prisma: 3.4.0
@@ -39,6 +41,7 @@ devDependencies:
   '@dooboo/eslint-config': 1.2.5_8f44563d02044015d6ba50cb47b86d55
   '@prisma/client': 3.4.0_prisma@3.4.0
   '@types/jest': 27.0.3
+  '@types/jest-plugin-context': 2.9.4
   '@typescript-eslint/eslint-plugin': 5.7.0_915acdfead96f701b1277a1a723fc8d4
   '@typescript-eslint/parser': 5.7.0_eslint@8.4.1+typescript@4.5.4
   babel-jest: 27.4.5_@babel+core@7.16.5
@@ -48,6 +51,7 @@ devDependencies:
   eslint-plugin-import: 2.25.3_eslint@8.4.1
   jest: 27.4.5
   jest-diff: 27.4.2
+  jest-plugin-context: 2.9.0_jest@27.4.5
   jest-transform-stub: 2.0.0
   prettier: 2.5.1
   prisma: 3.4.0
@@ -1783,6 +1787,12 @@ packages:
     resolution: {integrity: sha512-c3mAZEuK0lvBp8tmuL74XRKn1+y2dcwOUpH7x4WrF6gk1GIgiluDRgMYQtw2OFcBvAJWlt6ASU3tSqxp0Uu0Aw==}
     dependencies:
       '@types/istanbul-lib-report': 3.0.0
+    dev: true
+
+  /@types/jest-plugin-context/2.9.4:
+    resolution: {integrity: sha512-Pbp3vkz4yJy0NWmGS/HQO6V5uafXBS1BawsTzCvCyaDXcMUtKIaixl5d0xJLtCR6EmR6XYkXZ1+prZH2GuJifA==}
+    dependencies:
+      '@types/jest': 27.0.3
     dev: true
 
   /@types/jest/27.0.3:
@@ -4080,6 +4090,14 @@ packages:
     dependencies:
       '@jest/types': 27.4.2
       '@types/node': 16.11.12
+    dev: true
+
+  /jest-plugin-context/2.9.0_jest@27.4.5:
+    resolution: {integrity: sha1-YCqsvmEhOjuyKQZ9sO7p4APrGTE=}
+    peerDependencies:
+      jest: '*'
+    dependencies:
+      jest: 27.4.5
     dev: true
 
   /jest-pnp-resolver/1.2.2_jest-resolve@27.4.5:

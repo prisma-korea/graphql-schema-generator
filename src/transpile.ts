@@ -1,4 +1,4 @@
-import {DMMF, GeneratorConfig} from '@prisma/generator-helper';
+import type {DMMF} from '@prisma/generator-helper';
 
 import {DataModel} from './parse';
 import {Definition, ReservedName, SDL} from './converters/types';
@@ -12,7 +12,12 @@ import formatScalar from './formatters/formatScalar';
 
 import {removeExclamation, sdl} from './utils';
 
-const getTypeConvertedFields = (model: DMMF.Model): DMMF.Field[] => {
+import type {Config} from './generateGraphqlSchema';
+
+const getTypeConvertedFields = (
+  model: DMMF.Model,
+  config?: Config,
+): DMMF.Field[] => {
   if (!model) {
     return [];
   }
@@ -40,13 +45,26 @@ const getTypeConvertedFields = (model: DMMF.Model): DMMF.Field[] => {
         return collected;
       }
 
-      const transformers = [convertType, addTypeModifiers];
+      const convertTypeWithCustomRules = (
+        f: DMMF.Field,
+        m: DMMF.Model,
+      ): DMMF.Field => {
+        return convertType(f, m, config);
+      };
 
-      const typeConvertedField = transformers.reduce((acc, transformer) => {
-        return transformer(acc, model);
-      }, field);
+      const transformers = config?.customRules
+        ? [convertType, convertTypeWithCustomRules, addTypeModifiers]
+        : [convertType, addTypeModifiers];
 
-      return [...collected, typeConvertedField];
+      try {
+        const typeConvertedField = transformers.reduce((acc, transformer) => {
+          return transformer(acc, model);
+        }, field);
+
+        return [...collected, typeConvertedField];
+      } catch {
+        return collected;
+      }
     },
     [],
   );
@@ -54,14 +72,11 @@ const getTypeConvertedFields = (model: DMMF.Model): DMMF.Field[] => {
   return typeConvertedFields;
 };
 
-const transpile = (
-  dataModel: DataModel,
-  options?: GeneratorConfig['config'],
-): string => {
+const transpile = (dataModel: DataModel, config?: Config): string => {
   const {models, enums, names} = dataModel;
 
   const queryFields = dataModel.names.reduce((acc: string[], name) => {
-    const modelFields = getTypeConvertedFields(models[name]);
+    const modelFields = getTypeConvertedFields(models[name], config);
 
     const {name: idName} = modelFields.find(({type}) => {
       if (typeof type !== 'string') {
@@ -85,7 +100,7 @@ const transpile = (
   });
 
   const mutationFields = dataModel.names.reduce((acc: string[], name) => {
-    const modelFields = getTypeConvertedFields(models[name]);
+    const modelFields = getTypeConvertedFields(models[name], config);
 
     const {name: idName} = modelFields.find(({type}) => {
       if (typeof type !== 'string') {
@@ -105,7 +120,7 @@ const transpile = (
 
   const mutationInputs = dataModel.names.reduce(
     (inputs: string[], modelName) => {
-      const modelFields = getTypeConvertedFields(models[modelName]);
+      const modelFields = getTypeConvertedFields(models[modelName], config);
 
       const fieldsWithoutID = modelFields.reduce(
         (fields: DMMF.Field[], cur) => {
@@ -173,7 +188,7 @@ const transpile = (
 
   const modelsOfSchema = names
     .map((name) => {
-      const fields = getTypeConvertedFields(models[name]).map((field) =>
+      const fields = getTypeConvertedFields(models[name], config).map((field) =>
         formatField(field),
       );
 
@@ -186,8 +201,8 @@ const transpile = (
     .join('');
 
   const schema =
-    (options?.createQuery === 'true' ? queriesOfSchema : '') +
-    (options?.createMutation === 'true' ? mutationsOfSchema : '') +
+    (config?.createQuery === 'true' ? queriesOfSchema : '') +
+    (config?.createMutation === 'true' ? mutationsOfSchema : '') +
     scalarsOfSchema +
     enumsOfSchema +
     modelsOfSchema;

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "module": "commonjs",
+    "module": "esnext",
     "baseUrl": "src",
     "outDir": "lib",
     "incremental": true,
@@ -9,7 +9,6 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": true,
-    "isolatedModules": true,
 
     "strict": true,
     "noImplicitAny": false,

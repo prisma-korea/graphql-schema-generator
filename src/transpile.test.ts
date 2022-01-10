@@ -1,9 +1,67 @@
 import transpile from './transpile';
 import parse from './parse';
+import {Rule, SDL} from './converters/types';
 
 import {sdl} from './utils';
 
 describe('transpile', () => {
+  it('can be controlled with custom rules', async () => {
+    const prismaSchema = /* Prisma */ `
+        model User {
+          id      Int    @id
+          content Json
+        }
+  
+        model Post {
+          email    String  @unique
+          password  String
+        }
+      `;
+
+    const graphqlSchema = sdl(`
+        type User {
+          id: String!
+          content: String!
+        }
+  
+        type Post {
+          email: String!
+        }
+      `);
+
+    const customRules: Rule[] = [
+      {
+        matcher: (field) => {
+          const {name} = field;
+
+          if (name === 'password') {
+            return true;
+          }
+
+          return false;
+        },
+        transformer: () => {
+          throw null;
+        },
+      },
+      {
+        matcher: (field) => {
+          const {type} = field;
+
+          if (type === SDL.ID) {
+            return true;
+          }
+
+          return false;
+        },
+        transformer: (field) => ({...field, type: SDL.String}),
+      },
+    ];
+
+    const model = await parse(prismaSchema);
+    expect(transpile(model, {customRules})).toBe(graphqlSchema);
+  });
+
   it('adds queries', async () => {
     const prismaSchema = /* Prisma */ `
       model User {
