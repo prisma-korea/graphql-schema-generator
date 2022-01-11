@@ -1,11 +1,17 @@
 import {DMMF} from '@prisma/generator-helper';
 import {Rule} from '../types';
 
-const addBrasket = (field: DMMF.Field, type: DMMF.Field['type']): string =>
-  `[${type}]`;
+const addBrasket = (field: DMMF.Field): DMMF.Field => {
+  const {type} = field;
 
-const addExclamation = (_field: DMMF.Field, type: DMMF.Field['type']): string =>
-  `${type}!`;
+  return {...field, type: `[${type}]`};
+};
+
+const addExclamation = (field: DMMF.Field): DMMF.Field => {
+  const {type} = field;
+
+  return {...field, type: `${type}!`};
+};
 
 const rules: Rule[] = [
   {
@@ -18,13 +24,11 @@ const rules: Rule[] = [
 
       return isList;
     },
-    transformer: (field: DMMF.Field, type: DMMF.Field['type']) => {
-      const ret = [addExclamation, addBrasket, addExclamation].reduce(
-        (acc, cur) => cur(field, acc),
-        type,
+    transformer: (field) => {
+      return [addExclamation, addBrasket, addExclamation].reduce(
+        (acc, cur) => cur(acc),
+        field,
       );
-
-      return ret as string;
     },
   },
   {
@@ -33,7 +37,7 @@ const rules: Rule[] = [
 
       return !isList && isRequired;
     },
-    transformer: addExclamation,
+    transformer: (field) => addExclamation(field),
   },
 ];
 

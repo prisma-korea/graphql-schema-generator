@@ -4,25 +4,18 @@ import {Rule} from './types';
 import rules from './rules/scalar';
 
 const convertScalar = (
-  field: DMMF.Field,
+  initialField: DMMF.Field,
   model: DMMF.Model,
 ): string | DMMF.SchemaEnum | DMMF.OutputType | DMMF.SchemaArg => {
-  const initialType = field.type;
-
-  const convertedType = rules.reduce(
-    (type, {matcher, transformer}: Rule): string => {
+  const {type: convertedType} = rules.reduce(
+    (field, {matcher, transformer}: Rule): DMMF.Field => {
       if (matcher(field, model)) {
-        return transformer(field, type);
+        return transformer(field);
       }
 
-      // TODO
-      if (typeof type !== 'string') {
-        return type.name;
-      }
-
-      return type;
+      return field;
     },
-    initialType,
+    initialField,
   );
 
   return convertedType;
