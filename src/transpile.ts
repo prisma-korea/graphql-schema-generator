@@ -43,9 +43,7 @@ const getTypeConvertedFields = (model: DMMF.Model): DMMF.Field[] => {
       const transformers = [convertType, addTypeModifiers];
 
       const typeConvertedField = transformers.reduce((acc, transformer) => {
-        const type = transformer(acc, model);
-
-        return {...acc, type};
+        return transformer(acc, model);
       }, field);
 
       return [...collected, typeConvertedField];
