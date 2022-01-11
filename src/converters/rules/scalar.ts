@@ -13,7 +13,7 @@ const rules: Rule[] = [
 
       return false;
     },
-    transformer: () => SDL.String,
+    transformer: (field) => ({...field, type: SDL.String}),
   },
   {
     matcher: (field) => {
@@ -25,7 +25,7 @@ const rules: Rule[] = [
 
       return false;
     },
-    transformer: () => SDL.Int,
+    transformer: (field) => ({...field, type: SDL.Int}),
   },
   {
     matcher: (field) => {
@@ -37,7 +37,7 @@ const rules: Rule[] = [
 
       return false;
     },
-    transformer: () => SDL.Float,
+    transformer: (field) => ({...field, type: SDL.Float}),
   },
   {
     matcher: (field) => {
@@ -49,7 +49,7 @@ const rules: Rule[] = [
 
       return false;
     },
-    transformer: () => Scalar.ByteArray,
+    transformer: (field) => ({...field, type: Scalar.ByteArray}),
   },
   {
     matcher: (field) => {
@@ -57,7 +57,7 @@ const rules: Rule[] = [
 
       return isId;
     },
-    transformer: () => SDL.ID,
+    transformer: (field) => ({...field, type: SDL.ID}),
   },
   {
     matcher: (field, model) => {
@@ -68,7 +68,7 @@ const rules: Rule[] = [
 
       return !idField && uniqueFields.length === 1 && isUnique;
     },
-    transformer: () => SDL.ID,
+    transformer: (field) => ({...field, type: SDL.ID}),
   },
 ];
 
