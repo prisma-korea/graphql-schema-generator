@@ -11,7 +11,7 @@ const convertType = (
 ): DMMF.Field => {
   const {kind} = field;
 
-  if (kind === 'scalar') {
+  if (kind === 'scalar' || config?.customRules) {
     return convertScalar(field, model, config);
   }
 
