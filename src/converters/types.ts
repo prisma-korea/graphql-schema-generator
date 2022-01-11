@@ -39,7 +39,7 @@ enum Definition {
 
 type Rule = {
   matcher: (field: DMMF.Field, model: DMMF.Model) => boolean;
-  transformer: (field: DMMF.Field, type: DMMF.Field['type']) => string;
+  transformer: (field: DMMF.Field) => DMMF.Field;
 };
 
 export type {Rule};
