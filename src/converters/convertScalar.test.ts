@@ -18,7 +18,7 @@ describe('convertScalar', () => {
           field as DMMF.Field,
           {fields: []} as unknown as DMMF.Model,
         ),
-      ).toBe(SDL[type as T]);
+      ).toEqual(field as DMMF.Field);
     },
   );
 
@@ -29,7 +29,7 @@ describe('convertScalar', () => {
 
     expect(
       convertScalar(field as DMMF.Field, {fields: []} as unknown as DMMF.Model),
-    ).toBe(SDL.String);
+    ).toEqual({...field, type: SDL.String});
   });
 
   it('converts BigInt to Int', () => {
@@ -39,7 +39,7 @@ describe('convertScalar', () => {
 
     expect(
       convertScalar(field as DMMF.Field, {fields: []} as unknown as DMMF.Model),
-    ).toBe(SDL.Int);
+    ).toEqual({...field, type: SDL.Int});
   });
 
   it('converts Decimal to Float', () => {
@@ -49,7 +49,7 @@ describe('convertScalar', () => {
 
     expect(
       convertScalar(field as DMMF.Field, {fields: []} as unknown as DMMF.Model),
-    ).toBe(SDL.Float);
+    ).toEqual({...field, type: SDL.Float});
   });
 
   it('converts Bytes to ByteArray', () => {
@@ -59,7 +59,7 @@ describe('convertScalar', () => {
 
     expect(
       convertScalar(field as DMMF.Field, {fields: []} as unknown as DMMF.Model),
-    ).toBe(Scalar.ByteArray);
+    ).toEqual({...field, type: Scalar.ByteArray});
   });
 
   it('converts every type declared as @id to ID', () => {
@@ -68,28 +68,28 @@ describe('convertScalar', () => {
         {type: PSL.String, isId: false} as DMMF.Field,
         {fields: []} as unknown as DMMF.Model,
       ),
-    ).toBe(SDL.String);
+    ).toEqual({type: SDL.String, isId: false});
 
     expect(
       convertScalar(
         {type: PSL.Json, isId: false} as DMMF.Field,
         {fields: []} as unknown as DMMF.Model,
       ),
-    ).toBe(SDL.String);
+    ).toEqual({type: SDL.String, isId: false});
 
     expect(
       convertScalar(
         {type: PSL.String, isId: true} as DMMF.Field,
         {fields: []} as unknown as DMMF.Model,
       ),
-    ).toBe(SDL.ID);
+    ).toEqual({type: SDL.ID, isId: true});
 
     expect(
       convertScalar(
         {type: PSL.Json, isId: true} as DMMF.Field,
         {fields: []} as unknown as DMMF.Model,
       ),
-    ).toBe(SDL.ID);
+    ).toEqual({type: SDL.ID, isId: true});
   });
 
   it('converts solo @unique to ID if no @id exists', () => {
@@ -104,7 +104,7 @@ describe('convertScalar', () => {
           ],
         } as DMMF.Model,
       ),
-    ).toBe(SDL.ID);
+    ).toEqual({type: SDL.ID, isUnique: true, isId: false});
   });
 
   it('does nothing for multiple @unique even if no @id exists', () => {
@@ -119,6 +119,6 @@ describe('convertScalar', () => {
           ],
         } as DMMF.Model,
       ),
-    ).toBe(PSL.String);
+    ).toEqual({type: PSL.String, isUnique: true, isId: false});
   });
 });
