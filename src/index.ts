@@ -6,6 +6,8 @@ import {generatorHandler} from '@prisma/generator-helper';
 
 import generateGraphqlSchema from './generateGraphqlSchema';
 
+export * from './converters/types';
+
 generatorHandler({
   onManifest() {
     return {
@@ -18,6 +20,14 @@ generatorHandler({
     const {config} = options.generator;
 
     if (output) {
+      if (config?.customRules) {
+        const module = await import(
+          path.join(output, '..', config?.customRules)
+        );
+
+        config.customRules = module.default.rules;
+      }
+
       const result = await generateGraphqlSchema(options.datamodel, config);
 
       try {

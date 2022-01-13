@@ -6,7 +6,10 @@ jest.mock('./transpile');
 
 describe('generateGraphqlSchema', () => {
   it.each([
-    [{createCRUD: 'true'}, {createQuery: 'true', createMutation: 'true'}],
+    [
+      {createCRUD: 'true', someThing: 'else'},
+      {createQuery: 'true', createMutation: 'true', someThing: 'else'},
+    ],
     [{createCRUD: 'not true'}, {createQuery: 'false', createMutation: 'false'}],
   ])(
     'calls transpiler with model and converted config',

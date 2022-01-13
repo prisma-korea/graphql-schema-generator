@@ -47,19 +47,19 @@ input UserCreateInput {
   isOnline: Boolean
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   profile: Profile
-  notifications: [Notification!]!
-  friends: [Friend!]!
-  memberships: [Membership!]!
-  blockedUsers: [BlockedUser!]!
-  reports: [Report!]!
-  messages: [Message!]!
-  replys: [Reply!]!
-  reactions: [Reaction!]!
-  Friend: [Friend!]!
-  Report: [Report!]!
-  BlockedUser: [BlockedUser!]!
+  notifications: [Notification]
+  friends: [Friend]
+  memberships: [Membership]
+  blockedUsers: [BlockedUser]
+  reports: [Report]
+  messages: [Message]
+  replys: [Reply]
+  reactions: [Reaction]
+  Friend: [Friend]
+  Report: [Report]
+  BlockedUser: [BlockedUser]
 }
 
 input UserUpdateInput {
@@ -78,19 +78,19 @@ input UserUpdateInput {
   isOnline: Boolean
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   profile: Profile
-  notifications: [Notification!]
-  friends: [Friend!]
-  memberships: [Membership!]
-  blockedUsers: [BlockedUser!]
-  reports: [Report!]
-  messages: [Message!]
-  replys: [Reply!]
-  reactions: [Reaction!]
-  Friend: [Friend!]
-  Report: [Report!]
-  BlockedUser: [BlockedUser!]
+  notifications: [Notification]
+  friends: [Friend]
+  memberships: [Membership]
+  blockedUsers: [BlockedUser]
+  reports: [Report]
+  messages: [Message]
+  replys: [Reply]
+  reactions: [Reaction]
+  Friend: [Friend]
+  Report: [Report]
+  BlockedUser: [BlockedUser]
 }
 
 input NotificationCreateInput {
@@ -124,7 +124,7 @@ input ProfileUpdateInput {
 input FriendCreateInput {
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User!
   friend: User!
 }
@@ -132,7 +132,7 @@ input FriendCreateInput {
 input FriendUpdateInput {
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User
   friend: User
 }
@@ -140,7 +140,7 @@ input FriendUpdateInput {
 input BlockedUserCreateInput {
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User!
   blockedUser: User!
 }
@@ -148,7 +148,7 @@ input BlockedUserCreateInput {
 input BlockedUserUpdateInput {
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User
   blockedUser: User
 }
@@ -157,7 +157,7 @@ input ReportCreateInput {
   report: String!
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User!
   reportedUser: User!
 }
@@ -166,7 +166,7 @@ input ReportUpdateInput {
   report: String
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User
   reportedUser: User
 }
@@ -192,37 +192,35 @@ input MembershipUpdateInput {
 }
 
 input ChannelCreateInput {
-  channelType: ChannelType!
   name: String
-  messages: [Message!]!
-  membership: [Membership!]!
+  messages: [Message]
+  membership: [Membership]
   lastMessageId: String
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
 }
 
 input ChannelUpdateInput {
-  channelType: ChannelType
   name: String
-  messages: [Message!]
-  membership: [Membership!]
+  messages: [Message]
+  membership: [Membership]
   lastMessageId: String
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
 }
 
 input MessageCreateInput {
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
-  replies: [Reply!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
+  replies: [Reply]
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   channel: Channel!
   sender: User!
 }
@@ -230,13 +228,13 @@ input MessageCreateInput {
 input MessageUpdateInput {
   messageType: MessageType
   text: String
-  imageUrls: [String!]
-  fileUrls: [String!]
-  reactions: [Reaction!]
-  replies: [Reply!]
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
+  replies: [Reply]
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   channel: Channel
   sender: User
 }
@@ -244,12 +242,12 @@ input MessageUpdateInput {
 input ReplyCreateInput {
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   sender: User!
   message: Message!
 }
@@ -257,12 +255,12 @@ input ReplyCreateInput {
 input ReplyUpdateInput {
   messageType: MessageType
   text: String
-  imageUrls: [String!]
-  fileUrls: [String!]
-  reactions: [Reaction!]
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   sender: User
   message: Message
 }
@@ -372,19 +370,19 @@ type User {
   isOnline: Boolean
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   profile: Profile
-  notifications: [Notification!]!
-  friends: [Friend!]!
-  memberships: [Membership!]!
-  blockedUsers: [BlockedUser!]!
-  reports: [Report!]!
-  messages: [Message!]!
-  replys: [Reply!]!
-  reactions: [Reaction!]!
-  Friend: [Friend!]!
-  Report: [Report!]!
-  BlockedUser: [BlockedUser!]!
+  notifications: [Notification]
+  friends: [Friend]
+  memberships: [Membership]
+  blockedUsers: [BlockedUser]
+  reports: [Report]
+  messages: [Message]
+  replys: [Reply]
+  reactions: [Reaction]
+  Friend: [Friend]
+  Report: [Report]
+  BlockedUser: [BlockedUser]
 }
 
 type Notification {
@@ -406,7 +404,7 @@ type Profile {
 type Friend {
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User!
   friend: User!
 }
@@ -414,7 +412,7 @@ type Friend {
 type BlockedUser {
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User!
   blockedUser: User!
 }
@@ -424,7 +422,7 @@ type Report {
   report: String!
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   user: User!
   reportedUser: User!
 }
@@ -441,27 +439,26 @@ type Membership {
 
 type Channel {
   id: ID!
-  channelType: ChannelType!
   name: String
-  messages: [Message!]!
-  membership: [Membership!]!
+  messages: [Message]
+  membership: [Membership]
   lastMessageId: String
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
 }
 
 type Message {
   id: ID!
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
-  replies: [Reply!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
+  replies: [Reply]
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   channel: Channel!
   sender: User!
 }
@@ -470,12 +467,12 @@ type Reply {
   id: ID!
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
   createdAt: DateTime
   updatedAt: DateTime
-  deletedAt: DateTime
+  isDeleted: Boolean
   sender: User!
   message: Message!
 }

@@ -7,6 +7,7 @@ generator graphql {
   provider = "node ./dist-cjs/index.js"
   output = "./generated"
   createCRUD = "true"
+  customRules = "./rules.ts"
 }
 
 // Try yours! Schema below is from here:

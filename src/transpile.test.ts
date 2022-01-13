@@ -1,9 +1,85 @@
 import transpile from './transpile';
 import parse from './parse';
+import {CustomRules, SDL} from './converters/types';
 
 import {sdl} from './utils';
 
 describe('transpile', () => {
+  it('can be controlled with custom rules', async () => {
+    const prismaSchema = /* Prisma */ `
+        model User {
+          id      Int    @id
+          content Json
+        }
+  
+        model Post {
+          email    String  @unique
+          password  String
+        }
+      `;
+
+    const graphqlSchema = sdl(`
+        type User {
+          id: ID!
+          content: String!
+        }
+  
+        type Post {
+          email: String!
+        }
+      `);
+
+    const customRules: CustomRules = {
+      beforeAddingTypeModifiers: [
+        {
+          matcher: (field) => {
+            const {name} = field;
+
+            if (name === 'password') {
+              return true;
+            }
+
+            return false;
+          },
+          transformer: () => {
+            throw null;
+          },
+        },
+        {
+          matcher: (field) => {
+            const {type} = field;
+
+            if (type === SDL.ID) {
+              return true;
+            }
+
+            return false;
+          },
+          transformer: (field) => ({...field, type: SDL.String}),
+        },
+      ],
+      afterAddingTypeModifiers: [
+        {
+          matcher: (field) => {
+            const {name} = field;
+
+            if (name === 'id') {
+              return true;
+            }
+
+            return false;
+          },
+          transformer: (field) => {
+            return {...field, type: `${SDL.ID}!`};
+          },
+        },
+      ],
+    };
+
+    const model = await parse(prismaSchema);
+    expect(transpile(model, {customRules})).toBe(graphqlSchema);
+  });
+
   it('adds queries', async () => {
     const prismaSchema = /* Prisma */ `
       model User {

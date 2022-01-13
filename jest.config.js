@@ -1,4 +1,7 @@
 module.exports = {
+  setupFilesAfterEnv: [
+    "jest-plugin-context/setup"
+  ],
   transform: {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.ts$': 'ts-jest',
