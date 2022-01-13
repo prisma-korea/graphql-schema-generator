@@ -30,6 +30,9 @@ generator graphql {
 
 4. Check `schema.graphql` in `./prisma/generated` 🎉
 
+## Custom Rules
+You can apply custom rules to manipulate behavior. [(Some use cases)](https://github.com/prisma-korea/graphql-schema-generator/issues/34). See [this](https://github.com/prisma-korea/graphql-schema-generator/tree/master/prisma) for example.
+
 ## Contributing
 
 Any contributions are welcome. If you are interested, check out our [guidelines](https://github.com/prisma-korea/graphql-schema-generator/blob/master/CONTRIBUTING.md).
