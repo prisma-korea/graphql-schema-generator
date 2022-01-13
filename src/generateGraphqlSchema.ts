@@ -1,7 +1,7 @@
 import parse from './parse';
 import transpile from './transpile';
 
-import type {Rule} from './converters/types';
+import type {CustomRules} from './converters/types';
 
 export const description = `
 """
@@ -13,7 +13,7 @@ Read more about in https://github.com/prisma-korea/graphql-schema-generator.
 """
 `;
 export type Config = {
-  customRules?: Rule[];
+  customRules?: CustomRules;
   [key: string]: any;
 };
 

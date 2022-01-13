@@ -1,6 +1,6 @@
 import transpile from './transpile';
 import parse from './parse';
-import {Rule, SDL} from './converters/types';
+import {CustomRules, SDL} from './converters/types';
 
 import {sdl} from './utils';
 
@@ -29,34 +29,36 @@ describe('transpile', () => {
         }
       `);
 
-    const customRules: Rule[] = [
-      {
-        matcher: (field) => {
-          const {name} = field;
+    const customRules: CustomRules = {
+      beforeAddingTypeModifiers: [
+        {
+          matcher: (field) => {
+            const {name} = field;
 
-          if (name === 'password') {
-            return true;
-          }
+            if (name === 'password') {
+              return true;
+            }
 
-          return false;
+            return false;
+          },
+          transformer: () => {
+            throw null;
+          },
         },
-        transformer: () => {
-          throw null;
-        },
-      },
-      {
-        matcher: (field) => {
-          const {type} = field;
+        {
+          matcher: (field) => {
+            const {type} = field;
 
-          if (type === SDL.ID) {
-            return true;
-          }
+            if (type === SDL.ID) {
+              return true;
+            }
 
-          return false;
+            return false;
+          },
+          transformer: (field) => ({...field, type: SDL.String}),
         },
-        transformer: (field) => ({...field, type: SDL.String}),
-      },
-    ];
+      ],
+    };
 
     const model = await parse(prismaSchema);
     expect(transpile(model, {customRules})).toBe(graphqlSchema);

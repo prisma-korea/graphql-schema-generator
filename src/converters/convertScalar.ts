@@ -10,7 +10,9 @@ const convertScalar = (
   model: DMMF.Model,
   config?: Config,
 ): DMMF.Field => {
-  const rules = config?.customRules ? config.customRules : existingRules;
+  const rules = config?.customRules?.beforeAddingTypeModifiers
+    ? config.customRules.beforeAddingTypeModifiers
+    : existingRules;
 
   const newField = rules.reduce(
     (field, {matcher, transformer}: Rule): DMMF.Field => {

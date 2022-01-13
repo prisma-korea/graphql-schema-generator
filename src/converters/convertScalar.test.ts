@@ -1,17 +1,19 @@
 import {DMMF} from '@prisma/generator-helper';
 
-import {PSL, SDL, Scalar, Rule} from './types';
+import {PSL, SDL, Scalar, CustomRules} from './types';
 import convertScalar from './convertScalar';
 
 describe('convertScalar', () => {
   context('when custom rule is provided', () => {
     it('ignores existing rule, and apply custom rules', () => {
-      const customRules: Rule[] = [
-        {
-          matcher: () => true,
-          transformer: (field) => ({...field, type: SDL.Boolean}),
-        },
-      ];
+      const customRules: CustomRules = {
+        beforeAddingTypeModifiers: [
+          {
+            matcher: () => true,
+            transformer: (field) => ({...field, type: SDL.Boolean}),
+          },
+        ],
+      };
 
       const field = {
         type: PSL.BigInt,

@@ -1,38 +1,40 @@
 const {SDL} = require('../dist-cjs');
 
-const rules = [
-  {
-    matcher: (field) => {
-      const {name} = field;
+const rules = {
+  beforeAddingTypeModifiers: [
+    {
+      matcher: (field) => {
+        const {name} = field;
 
-      if (name === 'deletedAt') {
-        return true;
-      }
+        if (name === 'deletedAt') {
+          return true;
+        }
 
-      return false;
+        return false;
+      },
+      transformer: (field) => {
+        return {
+          ...field,
+          name: 'isDeleted',
+          type: SDL.Boolean,
+        };
+      },
     },
-    transformer: (field) => {
-      return {
-        ...field,
-        name: 'isDeleted',
-        type: SDL.Boolean,
-      };
-    },
-  },
-  {
-    matcher: (field) => {
-      const {type} = field;
+    {
+      matcher: (field) => {
+        const {type} = field;
 
-      if (type === 'ChannelType') {
-        return true;
-      }
+        if (type === 'ChannelType') {
+          return true;
+        }
 
-      return false;
+        return false;
+      },
+      transformer: () => {
+        throw null;
+      },
     },
-    transformer: () => {
-      throw null;
-    },
-  },
-];
+  ],
+};
 
 module.exports = {rules};

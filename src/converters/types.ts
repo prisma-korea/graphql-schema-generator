@@ -42,6 +42,11 @@ type Rule = {
   transformer: (field: DMMF.Field) => DMMF.Field;
 };
 
-export type {Rule};
+type CustomRules = {
+  beforeAddingTypeModifiers?: Rule[];
+  afterAddingTypeModifiers?: Rule[];
+};
+
+export type {Rule, CustomRules};
 
 export {SDL, PSL, Scalar, ReservedName, Definition};
