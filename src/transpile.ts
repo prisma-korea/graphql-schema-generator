@@ -45,20 +45,32 @@ const getTypeConvertedFields = (
         return collected;
       }
 
-      const convertTypeWithCustomRules = (
+      const applyCustomRulesBeforeTypeModifiersAddition = (
         f: DMMF.Field,
         m: DMMF.Model,
       ): DMMF.Field => {
         return convertType(f, m, config);
       };
 
-      const transformers = config?.customRules
-        ? [convertType, convertTypeWithCustomRules, addTypeModifiers]
-        : [convertType, addTypeModifiers];
+      const applyCustomRulesAfterTypeModifiersAddition = (
+        f: DMMF.Field,
+        m: DMMF.Model,
+      ): DMMF.Field => {
+        return addTypeModifiers(f, m, config);
+      };
+
+      const transformers = [
+        convertType,
+        config?.customRules?.beforeAddingTypeModifiers &&
+          applyCustomRulesBeforeTypeModifiersAddition,
+        addTypeModifiers,
+        config?.customRules?.afterAddingTypeModifiers &&
+          applyCustomRulesAfterTypeModifiersAddition,
+      ].filter(Boolean);
 
       try {
         const typeConvertedField = transformers.reduce((acc, transformer) => {
-          return transformer(acc, model);
+          return transformer!(acc, model);
         }, field);
 
         return [...collected, typeConvertedField];

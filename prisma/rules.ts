@@ -35,6 +35,32 @@ const rules = {
       },
     },
   ],
+  afterAddingTypeModifiers: [
+    {
+      matcher: (field) => {
+        const {type} = field;
+
+        if (/\[(\w+)!]!/gm.exec(type)) {
+          return true;
+        }
+
+        return false;
+      },
+      transformer: (field) => {
+        const {type} = field;
+
+        const match = /\[(\w+)!]!/gm.exec(type);
+
+        if (!match) {
+          return field;
+        }
+
+        const [_, typeWithoutModifiers] = match;
+
+        return {...field, type: `[${typeWithoutModifiers}]`};
+      },
+    },
+  ],
 };
 
 module.exports = {rules};

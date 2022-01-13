@@ -20,7 +20,7 @@ describe('transpile', () => {
 
     const graphqlSchema = sdl(`
         type User {
-          id: String!
+          id: ID!
           content: String!
         }
   
@@ -56,6 +56,22 @@ describe('transpile', () => {
             return false;
           },
           transformer: (field) => ({...field, type: SDL.String}),
+        },
+      ],
+      afterAddingTypeModifiers: [
+        {
+          matcher: (field) => {
+            const {name} = field;
+
+            if (name === 'id') {
+              return true;
+            }
+
+            return false;
+          },
+          transformer: (field) => {
+            return {...field, type: `${SDL.ID}!`};
+          },
         },
       ],
     };

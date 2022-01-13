@@ -49,17 +49,17 @@ input UserCreateInput {
   updatedAt: DateTime
   isDeleted: Boolean
   profile: Profile
-  notifications: [Notification!]!
-  friends: [Friend!]!
-  memberships: [Membership!]!
-  blockedUsers: [BlockedUser!]!
-  reports: [Report!]!
-  messages: [Message!]!
-  replys: [Reply!]!
-  reactions: [Reaction!]!
-  Friend: [Friend!]!
-  Report: [Report!]!
-  BlockedUser: [BlockedUser!]!
+  notifications: [Notification]
+  friends: [Friend]
+  memberships: [Membership]
+  blockedUsers: [BlockedUser]
+  reports: [Report]
+  messages: [Message]
+  replys: [Reply]
+  reactions: [Reaction]
+  Friend: [Friend]
+  Report: [Report]
+  BlockedUser: [BlockedUser]
 }
 
 input UserUpdateInput {
@@ -80,17 +80,17 @@ input UserUpdateInput {
   updatedAt: DateTime
   isDeleted: Boolean
   profile: Profile
-  notifications: [Notification!]
-  friends: [Friend!]
-  memberships: [Membership!]
-  blockedUsers: [BlockedUser!]
-  reports: [Report!]
-  messages: [Message!]
-  replys: [Reply!]
-  reactions: [Reaction!]
-  Friend: [Friend!]
-  Report: [Report!]
-  BlockedUser: [BlockedUser!]
+  notifications: [Notification]
+  friends: [Friend]
+  memberships: [Membership]
+  blockedUsers: [BlockedUser]
+  reports: [Report]
+  messages: [Message]
+  replys: [Reply]
+  reactions: [Reaction]
+  Friend: [Friend]
+  Report: [Report]
+  BlockedUser: [BlockedUser]
 }
 
 input NotificationCreateInput {
@@ -193,8 +193,8 @@ input MembershipUpdateInput {
 
 input ChannelCreateInput {
   name: String
-  messages: [Message!]!
-  membership: [Membership!]!
+  messages: [Message]
+  membership: [Membership]
   lastMessageId: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -203,8 +203,8 @@ input ChannelCreateInput {
 
 input ChannelUpdateInput {
   name: String
-  messages: [Message!]
-  membership: [Membership!]
+  messages: [Message]
+  membership: [Membership]
   lastMessageId: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -214,10 +214,10 @@ input ChannelUpdateInput {
 input MessageCreateInput {
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
-  replies: [Reply!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
+  replies: [Reply]
   createdAt: DateTime
   updatedAt: DateTime
   isDeleted: Boolean
@@ -228,10 +228,10 @@ input MessageCreateInput {
 input MessageUpdateInput {
   messageType: MessageType
   text: String
-  imageUrls: [String!]
-  fileUrls: [String!]
-  reactions: [Reaction!]
-  replies: [Reply!]
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
+  replies: [Reply]
   createdAt: DateTime
   updatedAt: DateTime
   isDeleted: Boolean
@@ -242,9 +242,9 @@ input MessageUpdateInput {
 input ReplyCreateInput {
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
   createdAt: DateTime
   updatedAt: DateTime
   isDeleted: Boolean
@@ -255,9 +255,9 @@ input ReplyCreateInput {
 input ReplyUpdateInput {
   messageType: MessageType
   text: String
-  imageUrls: [String!]
-  fileUrls: [String!]
-  reactions: [Reaction!]
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
   createdAt: DateTime
   updatedAt: DateTime
   isDeleted: Boolean
@@ -372,17 +372,17 @@ type User {
   updatedAt: DateTime
   isDeleted: Boolean
   profile: Profile
-  notifications: [Notification!]!
-  friends: [Friend!]!
-  memberships: [Membership!]!
-  blockedUsers: [BlockedUser!]!
-  reports: [Report!]!
-  messages: [Message!]!
-  replys: [Reply!]!
-  reactions: [Reaction!]!
-  Friend: [Friend!]!
-  Report: [Report!]!
-  BlockedUser: [BlockedUser!]!
+  notifications: [Notification]
+  friends: [Friend]
+  memberships: [Membership]
+  blockedUsers: [BlockedUser]
+  reports: [Report]
+  messages: [Message]
+  replys: [Reply]
+  reactions: [Reaction]
+  Friend: [Friend]
+  Report: [Report]
+  BlockedUser: [BlockedUser]
 }
 
 type Notification {
@@ -440,8 +440,8 @@ type Membership {
 type Channel {
   id: ID!
   name: String
-  messages: [Message!]!
-  membership: [Membership!]!
+  messages: [Message]
+  membership: [Membership]
   lastMessageId: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -452,10 +452,10 @@ type Message {
   id: ID!
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
-  replies: [Reply!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
+  replies: [Reply]
   createdAt: DateTime
   updatedAt: DateTime
   isDeleted: Boolean
@@ -467,9 +467,9 @@ type Reply {
   id: ID!
   messageType: MessageType!
   text: String
-  imageUrls: [String!]!
-  fileUrls: [String!]!
-  reactions: [Reaction!]!
+  imageUrls: [String]
+  fileUrls: [String]
+  reactions: [Reaction]
   createdAt: DateTime
   updatedAt: DateTime
   isDeleted: Boolean
