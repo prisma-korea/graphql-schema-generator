@@ -33,6 +33,23 @@ generator graphql {
 ## Custom Rules
 You can apply custom rules to manipulate behavior. [(Some use cases)](https://github.com/prisma-korea/graphql-schema-generator/issues/34). See [this](https://github.com/prisma-korea/graphql-schema-generator/tree/master/prisma) for example.
 
+> Example dir structure
+
+  ![image](https://user-images.githubusercontent.com/27461460/149453371-3991e868-ba43-4cf4-9d2a-c03e66c6eb75.png)
+
+> Example usage
+
+  ```
+  generator graphql {
+    provider = "graphql-schema-generator"
+    output   = "../src/schemas"
+    createCRUD = "true"
+    customRules = "../prisma/rules.ts"
+  }
+  ```
+
+> Example [rules code](https://github.com/prisma-korea/graphql-schema-generator/issues/15#issuecomment-1012775364)
+
 ## Contributing
 
 Any contributions are welcome. If you are interested, check out our [guidelines](https://github.com/prisma-korea/graphql-schema-generator/blob/master/CONTRIBUTING.md).
